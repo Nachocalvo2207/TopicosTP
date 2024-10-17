@@ -1,15 +1,68 @@
 #include "socios.h"
 
 int normalizar_a_y_n(char * s){
+    // gomez maira Luisa
     char * auxEsc=s;
-    char auxLec[60];
-    strcpy(auxLec,s);
-    *auxEsc
-    while(*auxLec){
-        while()
+    char copia[60];
+    int espacio=0, tienecoma,comalista=0,palabra=1;
+    mistrcpy(copia,s);
+    char* auxLec = copia;
+    tienecoma= tiene_coma(s);
+    if(esLetra(*auxLec)){
+        *auxEsc=aMayuscula(*auxLec); // G
+        auxLec++;
+        auxEsc++;
+    }else{
+        return ERROR;
     }
-
+    while(*auxLec){
+        if(esLetra(*auxLec)&&palabra==1){
+            *auxEsc=aMinuscula(*auxLec); // Gomez
+            auxLec++;
+            auxEsc++;
+        }else if(esEspacio(*auxLec)&&tienecoma==0&&comalista==0){ // Gomez,
+            *auxEsc=',';
+            auxEsc++;
+            auxLec++;
+            comalista=1;
+        }else if(esComa(*auxLec)&&tienecoma==1&&comalista==0){
+            *auxEsc=',';
+            auxEsc++;
+            auxLec++;
+            comalista=1;
+        }
+        else if(esEspacio(*auxLec)&&espacio==0){  //Gomez,
+            *auxEsc=' ';
+            auxEsc++;
+            auxLec++;
+            espacio=1;
+            palabra=0;
+        }else if(esLetra(*auxLec)&&palabra==0){ //Gomez, M
+            *auxEsc=aMayuscula(*auxLec);
+            auxLec++;
+            auxEsc++;
+            palabra=1;
+        }else if(esNumero(*auxLec)){
+            return ERROR;
+        }else{
+            auxLec++;
+            auxEsc++;
+        }
+    }
+    *auxEsc='\0'; // Gomez, Maira Luisa\0
     return TODO_OK;
+}
+
+int tiene_coma(char * s){
+    char* aux = s;
+    int coma=0;
+    while(*aux){
+        if(esComa(*aux)){
+            coma=1;
+        }
+        aux++;
+    }
+    return coma;
 }
 
 char* mistrcpy(char *s1, const char *s2){
