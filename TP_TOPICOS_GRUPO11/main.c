@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "socios.h"
 //
 //// Integrantes del grupo:
 //    -----------------
