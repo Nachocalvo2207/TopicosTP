@@ -33,4 +33,6 @@ typedef struct {
 }t_fecha;
 
 
+void verificar_fecha(t_fecha* fecha);
+
 #endif // SOCIOS_H_INCLUDED
