@@ -5,14 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define miisalpha(x) ((( (x) >= 'A'&& (x) <= 'Z' )||( (x) >= 'a' && (x) <='z' )) ? 1 : 0)
-#define miisdigit(x) (( (x) >= '1' && (x) <= '9' ) ? 1 : 0)
-#define miislower(x) (( (x) >= 'a' && (x) <= 'z' ) ? 1 : 0)
-#define miisupper(x) (( (x) >= 'A' && (x) <= 'Z' ) ? 1 : 0)
-#define miesespacio(x) (( (x) == ' ' ) ? 1 : 0)
-#define miescoma(x) (( (x) == ',' ) ? 1 : 0)
-#define mitoupper(x) (( (x) >= 'a' && (x) <= 'z' ) ? (x-('a'-'A')) : x)
-#define mitolower(x) (( (x) >= 'A' && (x) <= 'Z' ) ? (x+('a'-'A')) : x)
+#define TODO_OK 1
+#define ERROR 3
+
+#define esLetra(x) ((( (x) >= 'A'&& (x) <= 'Z' )||( (x) >= 'a' && (x) <='z' )) ? 1 : 0)
+#define esNumero(x) (( (x) >= '1' && (x) <= '9' ) ? 1 : 0)
+#define esMinuscula(x) (( (x) >= 'a' && (x) <= 'z' ) ? 1 : 0)
+#define esMayuscula(x) (( (x) >= 'A' && (x) <= 'Z' ) ? 1 : 0)
+#define esEsespacio(x) (( (x) == ' ' ) ? 1 : 0)
+#define esComa(x) (( (x) == ',' ) ? 1 : 0)
+#define aMayuscula(x) (( (x) >= 'a' && (x) <= 'z' ) ? (x-('a'-'A')) : x)
+#define aMinuscula(x) (( (x) >= 'A' && (x) <= 'Z' ) ? (x+('a'-'A')) : x)
 
 typedef struct {
     unsigned long DNI;
