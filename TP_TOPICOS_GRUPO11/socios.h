@@ -7,6 +7,8 @@
 
 #define TODO_OK 1
 #define ERROR 3
+#define ERR_FECHA 4
+#define EDAD_MIN 10
 
 #define esLetra(x) ((( (x) >= 'A'&& (x) <= 'Z' )||( (x) >= 'a' && (x) <='z' )) ? 1 : 0)
 #define esNumero(x) (( (x) >= '1' && (x) <= '9' ) ? 1 : 0)
@@ -27,7 +29,7 @@ typedef struct {
     unsigned long DNI;
     char ApYNom[60];
     t_fecha fechaNac;
-    char sexo [1];
+    char sexo[1];
     t_fecha fechaAfiliacion;
     char categoria [10];
     t_fecha UltCuotaPaga;
@@ -35,10 +37,15 @@ typedef struct {
     t_fecha fechaBaja;
 }Socio;
 
-void verificar_fecha(t_fecha* fecha);
 char* mistrcpy(char *s1, const char *s2);
 int normalizar_a_y_n(char * s);
 int tiene_coma(char * s);
+
+int verificar_fecha(t_fecha* fecha);
+int verificar_nacimiento(Socio* soc,t_fecha* fecha);
+int verificar_sexo(Socio* soc);
+
+
 
 
 #endif // SOCIOS_H_INCLUDED

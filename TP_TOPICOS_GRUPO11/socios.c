@@ -77,39 +77,60 @@ char* mistrcpy(char *s1, const char *s2){
 }
 
 
-void verificar_fecha(t_fecha* fecha)
+int verificar_fecha(t_fecha* fecha)
 {
-    //Si la fecha esta mal va al main, si esta bien chequea las validaciones y si esta bien retorna OK
     if(fecha->anio<1900 || fecha->anio>2021){
         printf("El anio ingresado no es valido\n");
-        return;
+        return ERR_FECHA;
     }
     if(fecha->mes<1 || fecha->mes>12){
         printf("El mes ingresado no es valido\n");
-        return;
+        return ERR_FECHA;
     }
     if(fecha->dia<1 || fecha->dia>31){
         printf("El dia ingresado no es valido\n");
-        return;
+        return ERR_FECHA;
     }
     if(fecha->mes==4 || fecha->mes==6 || fecha->mes==9 || fecha->mes==11){
         if(fecha->dia>30){
             printf("El dia ingresado no es valido\n");
-            return;
+            return ERR_FECHA;
         }
     }
     if(fecha->mes==2){
         if(fecha->anio%4==0 && fecha->anio%100!=0 || fecha->anio%400==0){
             if(fecha->dia>29){
                 printf("El dia ingresado no es valido\n");
-                return;
+                return ERR_FECHA;
             }
         }else{
             if(fecha->dia>28){
                 printf("El dia ingresado no es valido\n");
-                return;
+                return ERR_FECHA;
             }
         }
     }
+    printf("La fecha ingresada es correcta\n");
+    return TODO_OK;
 }
+
+
+int verificar_nacimiento(Socio* soc,t_fecha* fecha){
+    verificar_fecha(fecha);
+    if(soc->fechaNac.anio-fecha->anio<EDAD_MIN){
+        return ERROR;
+    }
+    return TODO_OK;
+}
+
+int verificar_sexo(Socio* soc)
+{
+    if(soc->sexo != 'M' && soc->sexo != 'F' && soc->sexo != 'O')
+        printf("Sexo no valido.");
+        return ERROR;
+
+    printf("Sexo validado");
+    return TODO_OK;
+}
+
 
