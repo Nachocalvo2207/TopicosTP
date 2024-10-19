@@ -17,14 +17,31 @@
 int main()
 {
     ///Aca vamos a poner la fecha de inicio entiendo
-//    t_fecha fec;
-//    printf("Ingrese la fecha de proceso: DD/MM/AAAA: ");
-//    scanf("%d/%d/%d",&fec.dia,&fec.mes,&fec.anio);
-//    verificar_fecha(&fec);
+    t_fecha fec;
+    printf("Ingrese la fecha de proceso: DD/MM/AAAA: ");
+    scanf("%d/%d/%d",&fec.dia,&fec.mes,&fec.anio);
+    ///validar_fecha(&fec);
 
-    Socio soc = {12345678, "Juan Perez", {1, 1, 1990}, "M", {1, 1, 2020}, "Categoria1", {1, 1, 2021}, "A", {1, 1, 2022}};
-    verificar_nacimiento(&soc, &soc.fechaAfiliacion);
-    verificar_sexo(&soc);
+    Socio soc = {1234, "Juan Perez", {13, 1, 2021}, 'O', {1, 1, 2020}, "Categoria1", {1, 1, 2021}, 'M', {1, 1, 2022}};
+///    validar_DNI(soc.DNI);
+///    validar_nacimiento(&soc.fechaNac,&fec);
+///    validar_sexo(soc.sexo);
+///    generar_socios
     return 0;
 
 }
+
+
+///Para modificar recorro el archivo:
+///lees un socio
+///si NO es el socio que buscas
+///Sigue recorriendo
+
+
+/// Ingresar datos nuevo()
+/// Validar Socio()
+///fseek(SEEK_CUR,-sizeof(Socio))
+/// Guardo Socio (no tiene que ser funcion, casi seguro) ---> r+b
+/// aca para de recorrer ak return
+
+///Si no encuentra nada, avisa

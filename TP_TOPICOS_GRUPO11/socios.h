@@ -5,10 +5,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TODO_OK 1
+#define TODO_OK 0
 #define ERROR 3
 #define ERR_FECHA 4
+#define ERR_DNI 1
+
+#define DNI_MIN 100000
+#define DNI_MAX 100000000
 #define EDAD_MIN 10
+#define FECHA_MIN 1900
+#define FECHA_MAX 2024
 
 #define esLetra(x) ((( (x) >= 'A'&& (x) <= 'Z' )||( (x) >= 'a' && (x) <='z' )) ? 1 : 0)
 #define esNumero(x) (( (x) >= '1' && (x) <= '9' ) ? 1 : 0)
@@ -29,11 +35,11 @@ typedef struct {
     unsigned long DNI;
     char ApYNom[60];
     t_fecha fechaNac;
-    char sexo[1];
+    char sexo;
     t_fecha fechaAfiliacion;
     char categoria [10];
     t_fecha UltCuotaPaga;
-    char estado[1];
+    char estado;
     t_fecha fechaBaja;
 }Socio;
 
@@ -41,10 +47,12 @@ char* mistrcpy(char *s1, const char *s2);
 int normalizar_a_y_n(char * s);
 int tiene_coma(char * s);
 
-int verificar_fecha(t_fecha* fecha);
-int verificar_nacimiento(Socio* soc,t_fecha* fecha);
-int verificar_sexo(Socio* soc);
+int generar_archivo(Socio* soc);
 
+int validar_DNI(int DNI);
+int validar_fecha(t_fecha* fecha);
+int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc);
+int validar_sexo(char sexo);
 
 
 
