@@ -49,11 +49,12 @@ int tiene_coma(char * s);
 
 int generar_archivo(Socio* soc);
 
-int validar_DNI(int DNI);
+int validar_DNI(const int DNI);
 int validar_fecha(t_fecha* fecha);
 int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc);
-int validar_sexo(char sexo);
-
+int validar_sexo(const char sexo);
+int validar_afliacion(Socio* soc,t_fecha* fechaProc);
+int validar_categoria(const char* categoria);
 
 
 #endif // SOCIOS_H_INCLUDED

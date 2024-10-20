@@ -109,7 +109,7 @@ int validar_fecha(t_fecha* fecha)
 }
 
 
-int validar_DNI(int DNI)
+int validar_DNI(const int DNI)
 {
     if(DNI < DNI_MIN || DNI > DNI_MAX)
         return ERR_DNI;
@@ -119,8 +119,8 @@ int validar_DNI(int DNI)
 
 int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc)
 {
-                /// VALIDO SI LA FECHA ES VALIDA                                                    VALIDO SI LA FECHA DE NAC ES 10 MAYOR A FECHA PROCESO
-    if(( validar_fecha(fechaNac) == 0 || validar_fecha(fechaProc) == 0 ) && ( (fechaProc->anio - fechaNac->anio > EDAD_MIN) || (fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes > fechaNac->mes) || (fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes == fechaNac->mes && fechaProc->dia > fechaNac->dia) ) )
+                    /// VALIDO SI LA FECHA ES VALIDA                                                VALIDO SI LA FECHA DE NAC ES 10 MAYOR A FECHA PROCESO
+    if(( validar_fecha(fechaNac) == 0 ||validar_fecha(fechaProc) == 0 ) && ( (fechaProc->anio - fechaNac->anio > EDAD_MIN) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes > fechaNac->mes) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes == fechaNac->mes && fechaProc->dia > fechaNac->dia) ) )
         return TODO_OK;
     return TODO_OK;
     ;
@@ -128,13 +128,9 @@ int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc)
    return TODO_OK;
 }
 
-int validar_afliacion(t_fecha* fechaAfil,t_fecha* fechaProc)
-{
-    ///FALTA HACER LA SEGUNDA VALIDACION, ME FUI A HACER FISICA
-    if( ( validar_fecha(fechaAfil) == 0 || validar_fecha(fechaProc) == 0 )  )
-}
 
-int validar_sexo(char sexo)
+
+int validar_sexo(const char sexo)
 {
     if( sexo != 'M' && sexo != 'F' && sexo != 'O' )
     {
@@ -144,6 +140,40 @@ int validar_sexo(char sexo)
 
     printf("Sexo validado");
     return TODO_OK;
+}
+
+int validar_afliacion(Socio* soc,t_fecha* fechaProc)
+{
+    /// Validar si las fechas de afiliaci�n y procesamiento son v�lidas
+    if (validar_fecha(&soc->fechaAfiliacion) == 0 && validar_fecha(fechaProc) == 0)
+    {
+        /// Comprobar que la fecha de afiliaci�n es <= fecha de procesamiento
+        if ((soc->fechaAfiliacion.anio < fechaProc->anio) ||
+            (soc->fechaAfiliacion.anio == fechaProc->anio && soc->fechaAfiliacion.mes < fechaProc->mes) ||
+            (soc->fechaAfiliacion.anio == fechaProc->anio && soc->fechaAfiliacion.mes == fechaProc->mes && soc->fechaAfiliacion.dia <= fechaProc->dia))
+        {
+            /// Comprobar que la fecha de afiliaci�n es mayor que la fecha de nacimiento
+            if ((soc->fechaAfiliacion.anio > soc->fechaNac.anio) ||
+                (soc->fechaAfiliacion.anio == soc->fechaNac.anio && soc->fechaAfiliacion.mes > soc->fechaNac.mes) ||
+                (soc->fechaAfiliacion.anio == soc->fechaNac.anio && soc->fechaAfiliacion.mes == soc->fechaNac.mes && soc->fechaAfiliacion.dia > soc->fechaNac.dia))
+                    return TODO_OK; // Afiliaci�n v�lida
+
+        }
+    }
+
+    return ERR_FECHA; // Afiliaci�n inv�lida
+}
+
+int validar_categoria(const char* categoria)
+{
+    if(strcmp(categoria, "MENOR") == 0 ||strcmp(categoria, "CADETE") == 0 || strcmp(categoria, "ADULTO") == 0 || strcmp(categoria, "VITALICIO") == 0 || strcmp(categoria, "HONORARIO") == 0 || strcmp(categoria, "JUBILADO") == 0 )
+    {
+        printf("Categoria valida");
+        return TODO_OK;
+    }
+
+    printf("Cat invalida");
+    return ERROR;
 }
 
 int generar_archivo(Socio* soc);
