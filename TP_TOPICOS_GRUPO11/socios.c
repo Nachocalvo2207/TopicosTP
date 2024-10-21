@@ -78,45 +78,42 @@ char* mistrcpy(char *s1, const char *s2){
 
 
 
-
-void crear_archivo(const char* arch) {
-    FILE *arch = fopen(arch, "wt");
-    if (!arch) {
-        printf("Error de escritura del archivo.\n");
-        return;
-    }
-    fclose(arch);
-}
-void verificar_fecha_nac(t_fecha* fecha) {
-    // Obtengo fecha actual
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-    fopen("error_arch.txt", "rt");
-
-    // Calculo la fecha mínima permitida
-    t_fecha fecha_minima;
-    fecha_minima.anio = tm.tm_year + 1900 - 10;
-    fecha_minima.mes = tm.tm_mon + 1;
-    fecha_minima.dia = tm.tm_mday;
-
-    // Chequear si tiene al menos 10 años
-    if (fecha->anio > fecha_minima.anio ||
-        (fecha->anio == fecha_minima.anio && fecha->mes > fecha_minima.mes) ||
-        (fecha->anio == fecha_minima.anio && fecha->mes == fecha_minima.mes && fecha->dia > fecha_minima.dia)) {
-        printf("La fecha de nacimiento debe ser al menos 10 años atrás.\n");
-        ///enviar al arrchivo error_arch.txt
-
-    }
-}
-
-void verificar_fecha(t_fecha* fecha)
+int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc)
 {
                     /// VALIDO SI LA FECHA ES VALIDA                                                VALIDO SI LA FECHA DE NAC ES 10 MAYOR A FECHA PROCESO
-    if(( validar_fecha(fechaNac) == 0 || validar_fecha(fechaProc) == 0 ) && ( (fechaProc->anio - fechaNac->anio > EDAD_MIN) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes > fechaNac->mes) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes == fechaNac->mes && fechaProc->dia > fechaNac->dia) ) )
+    if(( validar_fecha(fechaNac) == 0 ||validar_fecha(fechaProc) == 0 ) && ( (fechaProc->anio - fechaNac->anio > EDAD_MIN) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes > fechaNac->mes) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes == fechaNac->mes && fechaProc->dia > fechaNac->dia) ) )
         return TODO_OK;
-    return TODO_OK;
 
+   return ERROR;
 }
+
+int validar_fecha(t_fecha* fecha)
+{
+    if(fecha->anio<FECHA_MIN || fecha->anio>FECHA_MAX)
+        return ERR_FECHA;
+
+
+    if(fecha->mes < 1 || fecha->mes > 12)
+        return ERR_FECHA;
+
+    if(fecha->dia<1 || fecha->dia>31)
+        return ERR_FECHA;
+
+
+    if((fecha->mes==4 || fecha->mes==6 || fecha->mes==9 || fecha->mes==11) && fecha->dia>30)
+            return ERR_FECHA;
+
+    if(fecha->mes==2){
+        if(( (fecha->anio%4==0 && fecha->anio%100!=0 ) || fecha->anio%400==0) && fecha->dia>29)
+            return ERR_FECHA;
+
+        }else if(fecha->dia>28){
+            return ERR_FECHA;
+            }
+
+    return TODO_OK;
+}
+
 
 
 

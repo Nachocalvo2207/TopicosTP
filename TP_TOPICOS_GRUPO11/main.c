@@ -32,7 +32,7 @@ int main()
 ///    validar_categoria(soc.categoria);
 ///    validar_ultima_cuota(&soc,&fec);
 ///    validar_estado(soc.estado);
-    validar_fecha_de_baja(&soc);
+///    validar_fecha_de_baja(&soc);
     return 0;
 
 }
