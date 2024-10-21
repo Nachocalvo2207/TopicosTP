@@ -17,19 +17,22 @@
 int main()
 {
     ///Aca vamos a poner la fecha de inicio entiendo
-    t_fecha fec = {22,7,2021};
+    t_fecha fec = {22,7,2024};
 
     ///printf("Ingrese la fecha de proceso: DD/MM/AAAA: ");
     ///scanf("%d/%d/%d",&fec.dia,&fec.mes,&fec.anio);
     validar_fecha(&fec);
 
-    Socio soc = {1234, "Juan Perez", {13, 1, 2021}, 'O', {1, 1, 2020}, "MENOR", {1, 1, 2021}, 'M', {1, 1, 2022}};
+    Socio soc = {1234, "Juan Perez", {13, 1, 2020}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'I', {1, 1, 2023}};
 ///    validar_DNI(soc.DNI);
 ///    validar_nacimiento(&soc.fechaNac,&fec);
 ///    validar_sexo(soc.sexo);
 ///    generar_socios
 ///    validar_afliacion(&soc,&fec);
-    validar_categoria(soc.categoria);
+///    validar_categoria(soc.categoria);
+///    validar_ultima_cuota(&soc,&fec);
+///    validar_estado(soc.estado);
+    validar_fecha_de_baja(&soc);
     return 0;
 
 }

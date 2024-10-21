@@ -79,32 +79,25 @@
 
 int validar_fecha(t_fecha* fecha)
 {
-    if(fecha->anio<FECHA_MIN || fecha->anio>FECHA_MAX){
-        printf("El anio ingresado no es valido\n");
+    if(fecha->anio<FECHA_MIN || fecha->anio>FECHA_MAX)
         return ERR_FECHA;
-    }
-    if(fecha->mes<1 || fecha->mes>12){
-        printf("El mes ingresado no es valido\n");
+
+    if(fecha->mes<1 || fecha->mes>12)
         return ERR_FECHA;
-    }
-    if(fecha->dia<1 || fecha->dia>31){
-        printf("El dia ingresado no es valido\n");
+
+    if(fecha->dia<1 || fecha->dia>31)
         return ERR_FECHA;
-    }
-    if((fecha->mes==4 || fecha->mes==6 || fecha->mes==9 || fecha->mes==11) && fecha->dia>30){
-            printf("El dia ingresado no es valido\n");
+
+    if((fecha->mes==4 || fecha->mes==6 || fecha->mes==9 || fecha->mes==11) && fecha->dia>30)
             return ERR_FECHA;
-    }
+
     if(fecha->mes==2){
-        if((fecha->anio%4==0 && fecha->anio%100!=0 || fecha->anio%400==0) && fecha->dia>29){
-                printf("El dia ingresado no es valido\n");
+        if( (fecha->anio%4==0) && (fecha->anio%100!=0 || fecha->anio%400==0) && fecha->dia>29)
                 return ERR_FECHA;
-        }else if(fecha->dia>28){
-                printf("El dia ingresado no es valido\n");
+        else if(fecha->dia>28)
                 return ERR_FECHA;
-        }
+
     }
-    printf("La fecha ingresada es correcta\n");
     return TODO_OK;
 }
 
@@ -120,12 +113,10 @@ int validar_DNI(const int DNI)
 int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc)
 {
                     /// VALIDO SI LA FECHA ES VALIDA                                                VALIDO SI LA FECHA DE NAC ES 10 MAYOR A FECHA PROCESO
-    if(( validar_fecha(fechaNac) == 0 ||validar_fecha(fechaProc) == 0 ) && ( (fechaProc->anio - fechaNac->anio > EDAD_MIN) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes > fechaNac->mes) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes == fechaNac->mes && fechaProc->dia > fechaNac->dia) ) )
+    if(( validar_fecha(fechaNac) == 0 || validar_fecha(fechaProc) == 0 ) && ( (fechaProc->anio - fechaNac->anio > EDAD_MIN) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes > fechaNac->mes) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes == fechaNac->mes && fechaProc->dia > fechaNac->dia) ) )
         return TODO_OK;
     return TODO_OK;
-    ;
 
-   return TODO_OK;
 }
 
 
@@ -144,15 +135,15 @@ int validar_sexo(const char sexo)
 
 int validar_afliacion(Socio* soc,t_fecha* fechaProc)
 {
-    /// Validar si las fechas de afiliaci�n y procesamiento son v�lidas
+    /// Validar si las fechas de afiliacion y procesamiento son validas
     if (validar_fecha(&soc->fechaAfiliacion) == 0 && validar_fecha(fechaProc) == 0)
     {
-        /// Comprobar que la fecha de afiliaci�n es <= fecha de procesamiento
+        /// Comprobar que la fecha de afiliacion es <= fecha de procesamiento
         if ((soc->fechaAfiliacion.anio < fechaProc->anio) ||
             (soc->fechaAfiliacion.anio == fechaProc->anio && soc->fechaAfiliacion.mes < fechaProc->mes) ||
             (soc->fechaAfiliacion.anio == fechaProc->anio && soc->fechaAfiliacion.mes == fechaProc->mes && soc->fechaAfiliacion.dia <= fechaProc->dia))
         {
-            /// Comprobar que la fecha de afiliaci�n es mayor que la fecha de nacimiento
+            /// Comprobar que la fecha de afiliacion es mayor que la fecha de nacimiento
             if ((soc->fechaAfiliacion.anio > soc->fechaNac.anio) ||
                 (soc->fechaAfiliacion.anio == soc->fechaNac.anio && soc->fechaAfiliacion.mes > soc->fechaNac.mes) ||
                 (soc->fechaAfiliacion.anio == soc->fechaNac.anio && soc->fechaAfiliacion.mes == soc->fechaNac.mes && soc->fechaAfiliacion.dia > soc->fechaNac.dia))
@@ -174,6 +165,72 @@ int validar_categoria(const char* categoria)
 
     printf("Cat invalida");
     return ERROR;
+}
+
+int validar_ultima_cuota(Socio* soc, t_fecha* fechaProc)
+{
+    /// Validar si las fechas son correctas
+    if (validar_fecha(&soc->UltCuotaPaga) == 0 && validar_fecha(fechaProc) == 0)
+    {
+        /// Validar que la fecha de la última cuota <= fecha de procesamiento
+        if ((soc->UltCuotaPaga.anio < fechaProc->anio) ||
+            (soc->UltCuotaPaga.anio == fechaProc->anio && soc->UltCuotaPaga.mes < fechaProc->mes) ||
+            (soc->UltCuotaPaga.anio == fechaProc->anio && soc->UltCuotaPaga.mes == fechaProc->mes && soc->UltCuotaPaga.dia <= fechaProc->dia))
+        {
+            /// Validar que la fecha de la última cuota >= fecha de afiliación
+            if ((soc->UltCuotaPaga.anio > soc->fechaAfiliacion.anio) ||
+                (soc->UltCuotaPaga.anio == soc->fechaAfiliacion.anio && soc->UltCuotaPaga.mes > soc->fechaAfiliacion.mes) ||
+                (soc->UltCuotaPaga.anio == soc->fechaAfiliacion.anio && soc->UltCuotaPaga.mes == soc->fechaAfiliacion.mes && soc->UltCuotaPaga.dia >= soc->fechaAfiliacion.dia))
+                    return TODO_OK; // La fecha de la última cuota es válida
+
+        }
+    }
+
+    return ERROR; // Fecha inválida
+}
+
+int validar_estado(const char estado)
+{
+    if( estado != 'A' && estado != 'I' )
+    {
+        printf("estado no valido.");
+        return ERROR;
+    }
+
+    printf("estado validado");
+    return TODO_OK;
+}
+
+int validar_fecha_de_baja(Socio* soc)
+{
+    ///Valido la fecha de baja
+    if(validar_fecha(&soc->fechaBaja) != 0)
+        return ERR_FECHA;
+   ///Valido que el estado sea A, a su vez la fecha FICTICIA para asumir que esta activo es 1/1/1900
+    if( (soc->estado == 'A') && (soc->fechaBaja.dia == 1 && soc->fechaBaja.mes == 1 && soc->fechaBaja.anio == 1900  ) )
+        return SOCIO_ACTIVO;
+   ///Chequeo que el socio este INACTIVO
+    if( soc->estado == 'I')
+    {
+        /// Comparar que fecha de baja sea mayor a fecha de afiliación
+        if ((soc->fechaBaja.anio > soc->fechaAfiliacion.anio) ||
+            (soc->fechaBaja.anio == soc->fechaAfiliacion.anio && soc->fechaBaja.mes > soc->fechaAfiliacion.mes) ||
+            (soc->fechaBaja.anio == soc->fechaAfiliacion.anio && soc->fechaBaja.mes == soc->fechaAfiliacion.mes && soc->fechaBaja.dia > soc->fechaAfiliacion.dia))
+        {
+
+            /// Comparar que fecha de baja sea mayor a fecha de nacimiento
+            if ((soc->fechaBaja.anio > soc->fechaNac.anio) ||
+                (soc->fechaBaja.anio == soc->fechaNac.anio && soc->fechaBaja.mes > soc->fechaNac.mes) ||
+                (soc->fechaBaja.anio == soc->fechaNac.anio && soc->fechaBaja.mes == soc->fechaNac.mes && soc->fechaBaja.dia > soc->fechaNac.dia))
+            {
+                printf("Fecha de baja valida\n");
+                return TODO_OK; // La fecha de baja es válida
+            }
+        }
+
+    }
+    printf("Fecha de baja invalida");
+   return TODO_OK;
 }
 
 int generar_archivo(Socio* soc);

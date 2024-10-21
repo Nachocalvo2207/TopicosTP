@@ -9,6 +9,7 @@
 #define ERROR 3
 #define ERR_FECHA 4
 #define ERR_DNI 1
+#define SOCIO_ACTIVO 1
 
 #define DNI_MIN 100000
 #define DNI_MAX 100000000
@@ -54,7 +55,8 @@ int validar_fecha(t_fecha* fecha);
 int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc);
 int validar_sexo(const char sexo);
 int validar_afliacion(Socio* soc,t_fecha* fechaProc);
-int validar_categoria(const char* categoria);
-
+int validar_ultima_cuota(Socio* soc,t_fecha* fechaProc);
+int validar_estado(const char estado);
+int validar_fecha_de_baja(Socio* soc);
 
 #endif // SOCIOS_H_INCLUDED
