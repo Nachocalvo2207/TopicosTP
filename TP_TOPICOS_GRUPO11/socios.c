@@ -229,5 +229,35 @@ int validar_fecha_de_baja(Socio* soc)
    return TODO_OK;
 }
 
-int generar_archivo(Socio* soc);
+void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror){
+    char registro [TAM_REGISTRO];
+    Socio socio;
+    while(fgets(registro,TAM_REGISTRO,ptexto)){
+        cargar_estructura(registro,&socio);
+        // VALIDACIONES ACA, ENVIAR SOCIO YA CARGADO. CREAR FUNCIÓN CON TODAS LAS VALIDACIONES JUNTAS
+        //SI TODO OK, ESCRIBE EN EL BINARIO
+        if(validaciones(&socio)){
+                fwrite(&socio,sizeof(Socio),1,pbinario);
+        }
+        else{
+            //SI HAY ERROR, ESCRIBE EN TEXTO DE ERROR
+            fprintf(perror,"%ld;%s;%d/%d/%d;%c;%d/%d/%d;%s;%d/%d/%d;%c;%d/%d/%d",socio.DNI,socio.ApYNom,socio.fechaNac.dia,socio.fechaNac.mes,
+           socio.fechaNac.anio,socio.sexo,socio.fechaAfiliacion.dia,socio.fechaAfiliacion.mes,socio.fechaAfiliacion.anio,socio.categoria,
+           socio.UltCuotaPaga.dia,socio.UltCuotaPaga.mes,socio.UltCuotaPaga.anio,socio.estado,socio.fechaBaja.dia,socio.fechaBaja.mes,
+           socio.fechaBaja.anio);
+        }
+    }
+}
 
+void cargar_estructura(const char* registro,Socio *socio){
+    sscanf(registro,"%ld;%[^;];%d/%d/%d;%c;%d/%d/%d;%[^;];%d/%d/%d;%c;%d/%d/%d",&socio->DNI,socio->ApYNom,&socio->fechaNac.dia,&socio->fechaNac.mes,
+           &socio->fechaNac.anio,&socio->sexo,&socio->fechaAfiliacion.dia,&socio->fechaAfiliacion.mes,&socio->fechaAfiliacion.anio,socio->categoria,
+           &socio->UltCuotaPaga.dia,&socio->UltCuotaPaga.mes,&socio->UltCuotaPaga.anio,&socio->estado,&socio->fechaBaja.dia,&socio->fechaBaja.mes,
+           &socio->fechaBaja.anio);
+}
+
+int validaciones(Socio* socio){
+//UNIR TODAS LAS VALIDACIONES ACÁ.
+
+return TODO_OK;
+}

@@ -15,15 +15,31 @@
 
 
 int main()
-{
+{   char opcion;
     ///Aca vamos a poner la fecha de inicio entiendo
     t_fecha fec = {22,7,2024};
 
     ///printf("Ingrese la fecha de proceso: DD/MM/AAAA: ");
     ///scanf("%d/%d/%d",&fec.dia,&fec.mes,&fec.anio);
-    validar_fecha(&fec);
+   validar_fecha(&fec);
+   Socio soc = {1234, "Juan Perez", {13, 1, 2020}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'I', {1, 1, 2023}};
 
-    Socio soc = {1234, "Juan Perez", {13, 1, 2020}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'I', {1, 1, 2023}};
+//Mostrar menú
+printf("Ingrese la letra de la operaci%cn a realizar:\na. Alta\nb. Baja\nc. Modificaci%cn\nd. Mostrar informaci%cn de un socio\ne. Listado de socios ordenados por clave (DNI)\nf. Salir\n",162,162,162);
+
+//leer por teclado la opción y convertirla a mayuscula
+scanf(%d,&opcion);
+opcion=aMayuscula(opcion);
+
+//validar que sea correcta la opción
+while(opcion<'A'||opcion>'Z'){
+    puts("Ingrese opción válida");
+    scanf(%d,&opcion);
+    opcion=aMayuscula(opcion);
+}
+
+//ACA SWITCH CON CASE, DO WHILE PARA CORTE. REVISAR DE LA CLASE
+
 ///    validar_DNI(soc.DNI);
 ///    validar_nacimiento(&soc.fechaNac,&fec);
 ///    validar_sexo(soc.sexo);
