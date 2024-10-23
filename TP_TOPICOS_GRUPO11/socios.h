@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ARCH_TXT "socios.txt"
+
 #define TODO_OK 1
 #define ERROR 3
 #define ERR_FECHA 4
@@ -62,5 +64,7 @@ int validar_fecha_de_baja(Socio* soc);
 
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror);
 void cargar_estructura(const char* registro,Socio *socio);
+
+FILE* abrir_archivo(const char* filename, const char* modo);
 
 #endif // SOCIOS_H_INCLUDED

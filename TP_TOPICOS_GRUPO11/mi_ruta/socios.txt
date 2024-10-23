@@ -1,0 +1,12 @@
+10203040;Perez, Juan;15/05/1985;M;10/03/2020;ADULTO;01/01/2023;A;
+80907060;Gonzalez, Maria;10/02/1990;F;12/10/2018;CADETE;15/05/2023;A;
+30506070;Rodriguez, Carlos;01/01/1998;O;20/07/2017;ADULTO;10/12/2022;A;
+70708090;López Alvarez, Roberto;12/12/1965;M;15/09/2010;VITALICIO;20/09/2021;I;30/09/2021;
+20201512;Galleta, Pepe Raul;15/06/2015;M;12/03/2023;MENOR;15/05/2023;A;
+98765432;Morales, Gonzalo;10/11/2008;M;15/04/2019;ADULTO;10/06/2022;A;
+10203040;Perez Juan;15/15/2005;M;10/03/2020;ADULTO;01/01/2023;A;  // Falta coma en el nombre, fecha de nacimiento inválida (15/15/2005)
+80907060;Gonzalez, Maria;30/02/1990;F;12/10/2018;CADETE;15/05/2023;A;  // Fecha de nacimiento inválida (30/02/1990)
+30506070;Rodriguez, Carlos;01/01/1998;O;20/07/2017;ADULTO;10/12/2016;A;  // Fecha de última cuota anterior a la fecha de afiliación
+70708090;López Alvarez, Roberto;12/12/1965;M;15/09/2010;VITALICIO;20/09/2021;I;30/09/2021;  // Estado 'I' (inactivo) pero tiene fecha de baja
+20201512;galleta, Pepe Raul;15/06/2015;M;12/03/2023;MENOR;15/05/2023;A;  // Nombre mal capitalizado ("galleta" debería ser "Galleta")
+98765432;Morales, Gonzalo;10/11/2008;M;15/04/2019;INVALIDA;10/06/2022;A;  // Categoría inválida ("INVALIDA")
