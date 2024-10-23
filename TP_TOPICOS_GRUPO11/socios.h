@@ -10,6 +10,7 @@
 #define ERR_FECHA 4
 #define ERR_DNI 1
 #define SOCIO_ACTIVO 1
+#define ERR_ARCH 1;
 
 #define DNI_MIN 100000
 #define DNI_MAX 100000000

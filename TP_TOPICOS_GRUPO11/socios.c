@@ -229,6 +229,30 @@ int validar_fecha_de_baja(Socio* soc)
    return TODO_OK;
 }
 
+void generar_archivo(const char* nombre_archivo,Socio* soc){
+    FILE* arch_binario;
+    FILE* arch_texto;
+    FILE* arch_error;
+
+    arch_texto = fopen("socios.txt","r");
+    arch_binario = fopen("socios.dat","wb");
+    arch_error = fopen("error.txt","w");
+
+    if(arch_binario == NULL || arch_texto == NULL || arch_error == NULL){
+        printf("Error al abrir los archivos");
+        return ERR_ARCH;
+    }
+    
+    fread(&soc,sizeof(Socio),1,arch_binario);
+    while(!feof(arch_texto))
+    {
+        fread(&soc,sizeof(Socio),1,arch_binario);
+        if(val)
+    }
+
+
+}
+
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror){
     char registro [TAM_REGISTRO];
     Socio socio;
