@@ -25,19 +25,19 @@ int main()
 ///   validar_fecha(&fec);
  ///  Socio soc = {1234, "Juan Perez", {13, 1, 2020}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'I', {1, 1, 2023}};
 
-//Mostrar men�
-///printf("Ingrese la letra de la operaci%cn a realizar:\na. Alta\nb. Baja\nc. Modificaci%cn\nd. Mostrar informaci%cn de un socio\ne. Listado de socios ordenados por clave (DNI)\nf. Salir\n",162,162,162);
+//Mostrar menu
+printf("Ingrese la letra de la operaci%cn a realizar:\na. Alta\nb. Baja\nc. Modificaci%cn\nd. Mostrar informaci%cn de un socio\ne. Listado de socios ordenados por clave (DNI)\nf. Salir\n",162,162,162);
 
-//leer por teclado la opci�n y convertirla a mayuscula
-///scanf(%d,&opcion);
-///opcion=aMayuscula(opcion);
-///
+//leer por teclado la opcion y convertirla a mayuscula
+scanf("%c",&opcion);
+opcion=aMayuscula(opcion);
+
 /////validar que sea correcta la opci�n
-///while(opcion<'A'||opcion>'Z'){
-///    puts("Ingrese opci�n v�lida");
-///    scanf(%d,&opcion);
-///    opcion=aMayuscula(opcion);
-///}
+while(opcion<'A'||opcion>'Z'){
+    printf("Ingrese opci%cn v%clida",162,160);
+    scanf("%c",&opcion);
+    opcion=aMayuscula(opcion);
+}
 
 //ACA SWITCH CON CASE, DO WHILE PARA CORTE. REVISAR DE LA CLASE
 
