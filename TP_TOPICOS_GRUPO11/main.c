@@ -33,8 +33,9 @@ scanf("%c",&opcion);
 opcion=aMayuscula(opcion);
 
 /////validar que sea correcta la opci�n
-while(opcion<'A'||opcion>'Z'){
+while(opcion<'A'||opcion>'F'){
     printf("Ingrese opci%cn v%clida",162,160);
+    fflush(stdin);
     scanf("%c",&opcion);
     opcion=aMayuscula(opcion);
 }
