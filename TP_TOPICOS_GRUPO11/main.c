@@ -25,22 +25,26 @@ int main()
 ///   validar_fecha(&fec);
  ///  Socio soc = {1234, "Juan Perez", {13, 1, 2020}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'I', {1, 1, 2023}};
 
-//Mostrar menu
-printf("Ingrese la letra de la operaci%cn a realizar:\na. Alta\nb. Baja\nc. Modificaci%cn\nd. Mostrar informaci%cn de un socio\ne. Listado de socios ordenados por clave (DNI)\nf. Salir\n",162,162,162);
+ mostrar_menu(&opcion);
 
-//leer por teclado la opcion y convertirla a mayuscula
-scanf("%c",&opcion);
-opcion=aMayuscula(opcion);
+do{
+    mostrar_menu(&opcion);
+    switch(opcion){
+        case 'A':
 
-/////validar que sea correcta la opci�n
-while(opcion<'A'||opcion>'F'){
-    printf("Ingrese opci%cn v%clida",162,160);
-    fflush(stdin);
-    scanf("%c",&opcion);
-    opcion=aMayuscula(opcion);
-}
+            break;
+        case 'B':
 
-//ACA SWITCH CON CASE, DO WHILE PARA CORTE. REVISAR DE LA CLASE
+            break;
+        case 'C':
+
+            break;
+        case 'D':
+
+            break;
+    }
+}while(opcion!='F');
+
 
 ///    validar_DNI(soc.DNI);
 ///    validar_nacimiento(&soc.fechaNac,&fec);

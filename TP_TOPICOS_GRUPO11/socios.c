@@ -1,5 +1,21 @@
 #include "socios.h"
 
+void mostrar_menu(char * letra){
+//Mostrar menu
+printf("Ingrese la letra de la operaci%cn a realizar:\na. Alta\nb. Baja\nc. Modificaci%cn\nd. Mostrar informaci%cn de un socio\ne. Listado de socios ordenados por clave (DNI)\nf. Salir\n",162,162,162);
+//leer por teclado la opcion y convertirla a mayuscula
+scanf("%c",letra);
+*letra=aMayuscula(*letra);
+/////validar que sea correcta la opci�n
+while(*letra<'A'||*letra>'F'){
+    printf("Ingrese opci%cn v%clida",162,160);
+    fflush(stdin);
+    scanf("%c",letra);
+    *letra=aMayuscula(*letra);
+}
+fflush(stdin);
+}
+
 int normalizar_a_y_n(char * s){
     // gomez maira Luisa
     char * auxEsc=s;

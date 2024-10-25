@@ -52,6 +52,7 @@ char* mistrcpy(char *s1, const char *s2);
 int normalizar_a_y_n(char * s);
 int tiene_coma(char * s);
 
+void mostrar_menu(char * letra);
 int validaciones(Socio* socio);
 int validar_DNI(const int DNI);
 int validar_fecha(t_fecha* fecha);
