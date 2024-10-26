@@ -315,3 +315,91 @@ int validaciones(Socio* socio, t_fecha* fechaProc)
         return TODO_OK;
     return ERROR;
 }
+
+void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
+{
+    FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
+    if(!arch)
+    {
+        printf("Error de lectura de archivo\n");
+        exit(1);
+    }
+    Socio socio;
+    fseek(arch,0,SEEK_END);
+    printf("Ingrese el DNI: ");
+    scanf("%ld",&socio.DNI);
+    t_reg_indice dni_buscar;
+    dni_buscar.dni = socio.DNI;
+    if(!validar_DNI(socio.DNI))
+    {
+        puts("DNI Invalido\n");
+        exit(1);
+    }
+
+    int pos = indice_buscar(indice,&dni_buscar);
+    if(pos)
+    {
+        printf("El dni ya se encuentra en el archivo\n");
+    }else
+    {
+        printf("Ingrese el nombre y apellido: \n");
+        scanf("%s",socio.ApYNom);
+        printf("Ingrese la fecha de nacimiento:\n");
+        printf("Dia:");
+        scanf("%d",&socio.fechaNac.dia);
+        printf("Mes:");
+        scanf("%d",&socio.fechaNac.mes);
+        printf("A%co:",164);
+        scanf("%d",&socio.fechaNac.anio);
+        printf("Ingrese el sexo: \n");
+        scanf("%c",&socio.sexo);
+        printf("Ingrese la fecha de afiliacion:\n");
+        printf("Dia:");
+        scanf("%d",&socio.fechaAfiliacion.dia);
+        printf("Mes:");
+        scanf("%d",&socio.fechaAfiliacion.mes);
+        printf("A%co:",164);
+        scanf("%d",&socio.fechaAfiliacion.anio);
+        printf("Ingrese el sexo: \n");
+        scanf("%c",&socio.sexo);
+        printf("Ingrese la categoria: \n");
+        scanf("%s",socio.categoria);
+        printf("Ingrese la fecha de la ultima cuota paga: \n");
+        printf("Dia:");
+        scanf("%d",&socio.UltCuotaPaga.dia);
+        printf("Mes:");
+        scanf("%d",&socio.UltCuotaPaga.mes);
+        printf("A%co:",164);
+        scanf("%d",&socio.UltCuotaPaga.anio);
+        printf("Ingrese el sexo: \n");
+        scanf("%c",&socio.sexo);
+        printf("Ingrese el estado: \n");
+        scanf("%c",&socio.estado);
+        printf("Ingrese la fecha de baja:  \n");
+        scanf("%d/%d/%d",&socio.fechaBaja.dia,&socio.fechaBaja.mes,&socio.fechaBaja.anio);
+
+        if(validaciones(&socio,fecha))
+        {
+            int cont = 0;
+            fwrite(&socio,sizeof(Socio),1,arch);
+            if(indice->max == indice->tam)
+                indice_lleno(indice,sizeof(t_reg_indice));
+
+            memmove(indice->arr+pos+1,indice->arr+pos,(indice->tam-pos)*sizeof(t_reg_indice));
+            indice->arr[pos].dni = socio.DNI;
+            fseek(arch,0,SEEK_SET);
+            fread(&socio,sizeof(Socio),1,arch);
+            while(!feof(arch))
+            {
+                cont++;
+                fread(&socio,sizeof(Socio),1,arch);
+            }
+            indice->arr[pos].nro_reg = cont;
+            indice->tam++;
+
+        }else {
+            printf("Los datos ingresados no son validos. \n");
+        }
+    }
+
+}

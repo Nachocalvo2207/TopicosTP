@@ -73,17 +73,17 @@ int indice_eliminar(t_indice* indice, t_reg_indice reg_indice)
     return ERR_DNI;
 }
 
-int indice_buscar(const t_indice* indice, t_reg_indice* reg_indice)
+int indice_buscar(t_indice* indice, t_reg_indice* reg_indice)
 {
-    for(int i=0;i<indice->tam;i++)
+    t_indice* aux=indice;
+    for(int i=0;i<aux->tam;i++)
     {
-        if(indice->arr[i].dni == reg_indice->dni)
+        if(aux->arr[i].dni == reg_indice->dni)
         {
-            reg_indice->nro_reg = indice->arr[i].nro_reg;
+            reg_indice->nro_reg = aux->arr[i].nro_reg;
             return i;
         }
     }
-
     return NO_EXISTE_DNI;
 }
 
@@ -175,5 +175,7 @@ int mostrar_ordenado(t_indice *indice, const char *path) {
     fclose(arch);
     return TODO_OK;
 }
+
+
 
 

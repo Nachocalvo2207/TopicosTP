@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "indice.h"
 
 #define ARCH_TXT "mi_ruta/socios_bien.txt"
 #define ARCH_BIN "mi_ruta/socios.dat"
@@ -67,6 +68,7 @@ int validaciones(Socio* socio,t_fecha* fechaProc);
 
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fecha* fecha);
 void cargar_estructura(const char* registro,Socio *socio);
+void alta_socio(t_indice* indice,const char* path,t_fecha* fecha);
 
 FILE* abrir_archivo(const char* filename, const char* modo);
 

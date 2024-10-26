@@ -61,7 +61,7 @@ do{
     mostrar_menu(&opcion);
     switch(opcion){
         case 'A':
-
+            alta_socio(&indice,ARCH_BIN,&fec);
             break;
         case 'B':
 
