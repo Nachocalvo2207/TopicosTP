@@ -20,7 +20,7 @@ void indice_crear(t_indice* indice)
 int indice_cargar(t_indice* indice,const char* path)
 {
     FILE* arch = fopen(path,"rb");
-    int ce = 0;
+    int ce = 0, tam_arch=0;
     Socio socio;
     fread(&socio,sizeof(Socio),1,arch);
 
@@ -32,10 +32,10 @@ int indice_cargar(t_indice* indice,const char* path)
         if(socio.estado == 'A')
         {
         indice->arr[ce].dni = socio.DNI;
-        indice->arr[ce].nro_reg = ce;
+        indice->arr[ce].nro_reg = tam_arch;
         ce++;
         }
-
+        tam_arch++;
         fread(&socio,sizeof(Socio),1,arch);
     }
     indice->tam = ce;

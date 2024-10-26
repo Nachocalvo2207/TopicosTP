@@ -449,7 +449,7 @@ void mostrar_informacion(t_indice *indice, const char *path){
         exit(1);
     }
     Socio socio;
-    printf("Ingrese el DNI a dar de alta: ");
+    printf("Ingrese el DNI a consultar: ");
     scanf("%ld",&socio.DNI);
     t_reg_indice dni_buscar;
     dni_buscar.dni = socio.DNI;
