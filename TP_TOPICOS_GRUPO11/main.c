@@ -56,7 +56,7 @@ int main()
     indice_crear(&indice);
     fclose(archbinario);
     indice_cargar(&indice,ARCH_BIN);
-    printf("%d",indice_buscar(&indice,&reg_indice));
+
 do{
     mostrar_menu(&opcion);
 
@@ -65,13 +65,13 @@ do{
             alta_socio(&indice,ARCH_BIN,&fec);
             break;
         case 'B':
-///            baja_socio(&indice,ARCH_BIN,&fec);
+            baja_socio(&indice, ARCH_BIN);
             break;
         case 'C':
-            modificar_socio(&indice,ARCH_BIN,&fec);
+        modificar_socio(&indice,ARCH_BIN,&fec);
             break;
         case 'D':
-
+        mostrar_informacion(&indice, ARCH_BIN);
             break;
         case 'E':
         mostrar_ordenado(&indice,ARCH_BIN);
@@ -82,18 +82,3 @@ do{
     return 0;
 
 }
-
-
-///Para modificar recorro el archivo:
-///lees un socio
-///si NO es el socio que buscas
-///Sigue recorriendo
-
-
-/// Ingresar datos nuevo()
-/// Validar Socio()
-///fseek(SEEK_CUR,-sizeof(Socio))
-/// Guardo Socio (no tiene que ser funcion, casi seguro) ---> r+b
-/// aca para de recorrer ak return
-
-///Si no encuentra nada, avisa

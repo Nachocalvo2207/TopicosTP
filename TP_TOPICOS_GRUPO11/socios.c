@@ -586,4 +586,37 @@ int mostrar_ordenado(t_indice *indice, const char *path) {
     return TODO_OK;
 }
 
-
+void baja_socio(t_indice *indice,const char *path){
+FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
+    if(!arch)
+    {
+        printf("Error de lectura de archivo\n");
+        exit(1);
+    }
+    Socio socio;
+    printf("Ingrese el DNI a dar de baja: ");
+    scanf("%ld",&socio.DNI);
+    t_reg_indice dni_buscar;
+    dni_buscar.dni = socio.DNI;
+    if(!validar_DNI(socio.DNI))
+    {
+        puts("DNI Invalido\n");
+        exit(1);
+    }
+    int pos = indice_buscar(indice,&dni_buscar);
+    if(!pos){
+        puts("DNI no encontrado\n");
+        exit(1);
+    }else{
+        fseek(arch, dni_buscar.nro_reg * sizeof(Socio), SEEK_SET);
+        fread(&socio, sizeof(socio), 1, arch);
+        socio.estado='I';
+        fseek(arch, dni_buscar.nro_reg * sizeof(Socio), SEEK_SET);
+        fwrite(&socio,sizeof(Socio),1,arch);
+        fclose(arch);
+        indice_vaciar(indice);
+        indice_crear(indice);
+        indice_cargar(indice,ARCH_BIN);
+        puts("Baja exitosa.\n");
+    }
+}

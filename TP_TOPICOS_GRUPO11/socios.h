@@ -72,5 +72,6 @@ void cargar_estructura(const char* registro,Socio *socio);
 void alta_socio(t_indice* indice,const char* path,t_fecha* fecha);
 int mostrar_ordenado(t_indice *indice, const char *path);
 FILE* abrir_archivo(const char* filename, const char* modo);
+void baja_socio(t_indice* indice,const char *path);
 
 #endif // SOCIOS_H_INCLUDED
