@@ -101,10 +101,9 @@ int validar_nacimiento(Socio* soc, t_fecha* fechaProc)
         if ((soc->fechaNac.anio < fechaProc->anio - EDAD_MIN) ||
             (soc->fechaNac.anio == fechaProc->anio - EDAD_MIN && soc->fechaNac.mes < fechaProc->mes) ||
             (soc->fechaNac.anio == fechaProc->anio - EDAD_MIN && soc->fechaNac.mes == fechaProc->mes && soc->fechaNac.dia <= fechaProc->dia))
-        {
-            printf("Fecha de nacimiento valida");
+
             return TODO_OK;
-        }
+
     }
 
     printf("Fecha de nacimiento invalida");
@@ -157,7 +156,7 @@ int validar_sexo(const char sexo)
 int validar_afliacion(Socio* soc,t_fecha* fechaProc)
 {
     /// Validar si las fechas de afiliacion y procesamiento son validas
-    if (validar_fecha(&soc->fechaAfiliacion) == 0 && validar_fecha(fechaProc) == 0)
+    if (validar_fecha(&soc->fechaAfiliacion) && validar_fecha(fechaProc) )
     {
         /// Comprobar que la fecha de afiliacion es <= fecha de procesamiento
         if ((soc->fechaAfiliacion.anio < fechaProc->anio) ||
@@ -172,26 +171,21 @@ int validar_afliacion(Socio* soc,t_fecha* fechaProc)
 
         }
     }
-    printf("Error Fecha afilicaion");
     return ERR_FECHA; // Afiliaci�n inv�lida
 }
 
 int validar_categoria(const char* categoria)
 {
-    if(strcmp(categoria, "MENOR") == 0 ||strcmp(categoria, "CADETE") == 0 || strcmp(categoria, "ADULTO") == 0 || strcmp(categoria, "VITALICIO") == 0 || strcmp(categoria, "HONORARIO") == 0 || strcmp(categoria, "JUBILADO") == 0 )
-    {
-        printf("Categoria valida");
+    if(strcmp(categoria, "MENOR") ||strcmp(categoria, "CADETE") || strcmp(categoria, "ADULTO") || strcmp(categoria, "VITALICIO")  || strcmp(categoria, "HONORARIO") || strcmp(categoria, "JUBILADO")  )
         return TODO_OK;
-    }
 
-    printf("Cat invalida");
     return ERROR;
 }
 
 int validar_ultima_cuota(Socio* soc, t_fecha* fechaProc)
 {
     /// Validar si las fechas son correctas
-    if (validar_fecha(&soc->UltCuotaPaga) == 0 && validar_fecha(fechaProc) == 0)
+    if (validar_fecha(&soc->UltCuotaPaga)  && validar_fecha(fechaProc) )
     {
         /// Validar que la fecha de la última cuota <= fecha de procesamiento
         if ((soc->UltCuotaPaga.anio < fechaProc->anio) ||
@@ -206,7 +200,6 @@ int validar_ultima_cuota(Socio* soc, t_fecha* fechaProc)
 
         }
     }
-    printf("Fecha invalida");
     return ERROR; // Fecha inválida
 }
 
@@ -214,18 +207,16 @@ int validar_estado(const char estado)
 {
     if( estado != 'A' && estado != 'I' )
     {
-        printf("estado no valido.");
         return ERROR;
     }
 
-    printf("estado validado");
     return TODO_OK;
 }
 
 int validar_fecha_de_baja(Socio* soc)
 {
     ///Valido la fecha de baja
-    if(validar_fecha(&soc->fechaBaja) != 0)
+    if(!validar_fecha(&soc->fechaBaja))
         return ERR_FECHA;
    ///Valido que el estado sea A, a su vez la fecha FICTICIA para asumir que esta activo es 1/1/1900
     if( (soc->estado == 'A') && (soc->fechaBaja.dia == 1 && soc->fechaBaja.mes == 1 && soc->fechaBaja.anio == 1900  ) )
@@ -243,14 +234,12 @@ int validar_fecha_de_baja(Socio* soc)
             if ((soc->fechaBaja.anio > soc->fechaNac.anio) ||
                 (soc->fechaBaja.anio == soc->fechaNac.anio && soc->fechaBaja.mes > soc->fechaNac.mes) ||
                 (soc->fechaBaja.anio == soc->fechaNac.anio && soc->fechaBaja.mes == soc->fechaNac.mes && soc->fechaBaja.dia > soc->fechaNac.dia))
-            {
-                printf("Fecha de baja valida\n");
+
                 return TODO_OK; // La fecha de baja es válida
-            }
+
         }
 
     }
-    printf("Fecha de baja invalida");
    return TODO_OK;
 }
 
@@ -298,20 +287,15 @@ int validaciones(Socio* socio, t_fecha* fechaProc)
 //UNIR TODAS LAS VALIDACIONES ACÁ.
     ///Valido que todo sea correcto
     if(
-    validar_DNI(socio->DNI) == TODO_OK
-    && validar_nacimiento(socio,fechaProc) == TODO_OK
-    && validar_sexo(socio->sexo) == TODO_OK
-    && validar_afliacion(socio,fechaProc) == TODO_OK
-    && validar_categoria(socio->categoria) == TODO_OK
-    && validar_ultima_cuota(socio,fechaProc) == TODO_OK
-    && validar_estado(socio->estado) == TODO_OK
-    && validar_fecha_de_baja(socio) == TODO_OK
-       )
-    {
-        printf("Todo ok");
+    validar_DNI(socio->DNI)
+    && validar_nacimiento(socio,fechaProc)
+    && validar_sexo(socio->sexo)
+    && validar_afliacion(socio,fechaProc)
+    && validar_categoria(socio->categoria)
+    && validar_ultima_cuota(socio,fechaProc)
+    && validar_estado(socio->estado)
+    && validar_fecha_de_baja(socio)
+    )
         return TODO_OK;
-    }
-
-    printf("ERROR");
     return ERROR;
 }
