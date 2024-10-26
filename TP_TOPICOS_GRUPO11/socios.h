@@ -53,15 +53,15 @@ int normalizar_a_y_n(char * s);
 int tiene_coma(char * s);
 
 void mostrar_menu(char * letra);
-int validaciones(Socio* socio);
 int validar_DNI(const int DNI);
 int validar_fecha(t_fecha* fecha);
-int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc);
+int validar_nacimiento(Socio* soc, t_fecha* fechaProc);
 int validar_sexo(const char sexo);
 int validar_afliacion(Socio* soc,t_fecha* fechaProc);
 int validar_ultima_cuota(Socio* soc,t_fecha* fechaProc);
 int validar_estado(const char estado);
 int validar_fecha_de_baja(Socio* soc);
+int validaciones(Socio* socio, t_fecha* fechaProc);
 
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror);
 void cargar_estructura(const char* registro,Socio *socio);

@@ -17,33 +17,33 @@
 int main()
 {   char opcion;
     ///Aca vamos a poner la fecha de inicio entiendo
-///    t_fecha fec = {22,7,2024};
-    abrir_archivo(ARCH_TXT,"r");
+    t_fecha fecha = {22,7,2024};
+///    abrir_archivo(ARCH_TXT,"r");
 
     ///printf("Ingrese la fecha de proceso: DD/MM/AAAA: ");
     ///scanf("%d/%d/%d",&fec.dia,&fec.mes,&fec.anio);
 ///   validar_fecha(&fec);
- ///  Socio soc = {1234, "Juan Perez", {13, 1, 2020}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'I', {1, 1, 2023}};
-
- mostrar_menu(&opcion);
-
-do{
-    mostrar_menu(&opcion);
-    switch(opcion){
-        case 'A':
-
-            break;
-        case 'B':
-
-            break;
-        case 'C':
-
-            break;
-        case 'D':
-
-            break;
-    }
-}while(opcion!='F');
+    Socio soc = {41162300, "Juan Perez", {13, 1, 1998}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'A', {1, 1, 2023}};
+    validaciones(&soc,&fecha);
+// mostrar_menu(&opcion);
+//
+//do{
+//    mostrar_menu(&opcion);
+//    switch(opcion){
+//        case 'A':
+//
+//            break;
+//        case 'B':
+//
+//            break;
+//        case 'C':
+//
+//            break;
+//        case 'D':
+//
+//            break;
+//    }
+//}while(opcion!='F');
 
 
 ///    validar_DNI(soc.DNI);

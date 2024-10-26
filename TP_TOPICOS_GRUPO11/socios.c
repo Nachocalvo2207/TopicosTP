@@ -8,7 +8,7 @@ scanf("%c",letra);
 *letra=aMayuscula(*letra);
 /////validar que sea correcta la opci�n
 while(*letra<'A'||*letra>'F'){
-    printf("Ingrese opci%cn v%clida",162,160);
+    printf("Ingrese opci%cn v%clida: ",162,160);
     fflush(stdin);
     scanf("%c",letra);
     *letra=aMayuscula(*letra);
@@ -94,13 +94,29 @@ char* mistrcpy(char *s1, const char *s2){
 
 
 
-int validar_nacimiento(t_fecha* fechaNac,t_fecha* fechaProc)
+int validar_nacimiento(Socio* soc, t_fecha* fechaProc)
 {
-                    /// VALIDO SI LA FECHA ES VALIDA                                                VALIDO SI LA FECHA DE NAC ES 10 MAYOR A FECHA PROCESO
-    if(( validar_fecha(fechaNac) == 0 ||validar_fecha(fechaProc) == 0 ) && ( (fechaProc->anio - fechaNac->anio > EDAD_MIN) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes > fechaNac->mes) ||(fechaProc->anio - fechaNac->anio == EDAD_MIN && fechaProc->mes == fechaNac->mes && fechaProc->dia > fechaNac->dia) ) )
-        return TODO_OK;
+    if ( validar_fecha(&soc->fechaNac)  && validar_fecha(fechaProc) )
+    {
+        if ((soc->fechaNac.anio < fechaProc->anio - EDAD_MIN) ||
+            (soc->fechaNac.anio == fechaProc->anio - EDAD_MIN && soc->fechaNac.mes < fechaProc->mes) ||
+            (soc->fechaNac.anio == fechaProc->anio - EDAD_MIN && soc->fechaNac.mes == fechaProc->mes && soc->fechaNac.dia <= fechaProc->dia))
+        {
+            printf("Fecha de nacimiento valida");
+            return TODO_OK;
+        }
+    }
 
+    printf("Fecha de nacimiento invalida");
    return ERROR;
+}
+
+int validar_DNI(const int DNI)
+{
+    if(DNI<DNI_MIN || DNI>DNI_MAX)
+        return ERR_DNI;
+
+    return TODO_OK;
 }
 
 int validar_fecha(t_fecha* fecha)
@@ -130,18 +146,11 @@ int validar_fecha(t_fecha* fecha)
     return TODO_OK;
 }
 
-
-
-
 int validar_sexo(const char sexo)
 {
     if( sexo != 'M' && sexo != 'F' && sexo != 'O' )
-    {
-        printf("Sexo no valido.");
         return ERROR;
-    }
 
-    printf("Sexo validado");
     return TODO_OK;
 }
 
@@ -163,7 +172,7 @@ int validar_afliacion(Socio* soc,t_fecha* fechaProc)
 
         }
     }
-
+    printf("Error Fecha afilicaion");
     return ERR_FECHA; // Afiliaci�n inv�lida
 }
 
@@ -197,7 +206,7 @@ int validar_ultima_cuota(Socio* soc, t_fecha* fechaProc)
 
         }
     }
-
+    printf("Fecha invalida");
     return ERROR; // Fecha inválida
 }
 
@@ -259,11 +268,12 @@ FILE* abrir_archivo(const char* filename, const char* modo)
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror){
     char registro [TAM_REGISTRO];
     Socio socio;
+    t_fecha fecha;
     while(fgets(registro,TAM_REGISTRO,ptexto)){
         cargar_estructura(registro,&socio);
         // VALIDACIONES ACA, ENVIAR SOCIO YA CARGADO. CREAR FUNCIÓN CON TODAS LAS VALIDACIONES JUNTAS
         //SI TODO OK, ESCRIBE EN EL BINARIO
-        if(validaciones(&socio)){
+        if(validaciones(&socio,&fecha)){
                 fwrite(&socio,sizeof(Socio),1,pbinario);
         }
         else{
@@ -283,8 +293,25 @@ void cargar_estructura(const char* registro,Socio *socio){
            &socio->fechaBaja.anio);
 }
 
-int validaciones(Socio* socio){
+int validaciones(Socio* socio, t_fecha* fechaProc)
+{
 //UNIR TODAS LAS VALIDACIONES ACÁ.
+    ///Valido que todo sea correcto
+    if(
+    validar_DNI(socio->DNI) == TODO_OK
+    && validar_nacimiento(socio,fechaProc) == TODO_OK
+    && validar_sexo(socio->sexo) == TODO_OK
+    && validar_afliacion(socio,fechaProc) == TODO_OK
+    && validar_categoria(socio->categoria) == TODO_OK
+    && validar_ultima_cuota(socio,fechaProc) == TODO_OK
+    && validar_estado(socio->estado) == TODO_OK
+    && validar_fecha_de_baja(socio) == TODO_OK
+       )
+    {
+        printf("Todo ok");
+        return TODO_OK;
+    }
 
-return TODO_OK;
+    printf("ERROR");
+    return ERROR;
 }
