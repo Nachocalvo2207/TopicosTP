@@ -35,7 +35,7 @@ int main()
        scanf("%d",&fec.dia);
        printf("Mes: ");
        scanf("%d",&fec.mes);
-       printf("A�o: ");
+       printf("A%co:",164);
        scanf("%d",&fec.anio);
     }
 
@@ -51,10 +51,12 @@ int main()
     t_indice indice;
     t_reg_indice reg_indice;
 
+    reg_indice.dni=30567845;
+
     indice_crear(&indice);
     fclose(archbinario);
     indice_cargar(&indice,ARCH_BIN);
-    indice_buscar(&indice,&reg_indice);
+    printf("%d",indice_buscar(&indice,&reg_indice));
 do{
     mostrar_menu(&opcion);
     switch(opcion){

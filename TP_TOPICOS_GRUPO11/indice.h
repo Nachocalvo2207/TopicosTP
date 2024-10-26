@@ -3,7 +3,8 @@
 
 #define TAM_INICIAL 100
 #define NO_EXISTE_DNI 0
-#define ERR_MEM 0;
+#define ERR_MEM 0
+#define AGRANDAR 1.3
 
 typedef struct {
     long dni;
@@ -23,8 +24,8 @@ int indice_vacio(const t_indice *indice);
 int mostrar_ordenado(t_indice *indice, const char *path);
 int indice_buscar(const t_indice* indice, t_reg_indice* reg_indice);
 
-int comparar_reg_indice (void* a,void* b);
-void ordenamiento(void* indice,size_t ce,size_t tam,int (*cmp)(void*,void*));
+int comparar_t_indice (void* a,void* b);
+void ordenamiento(t_indice* indice);
 void intercambio(void* a,void* b,size_t tam);
 
 
