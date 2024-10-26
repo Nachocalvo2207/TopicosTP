@@ -18,7 +18,11 @@ int main()
 {   char opcion;
     ///Aca vamos a poner la fecha de inicio entiendo
     t_fecha fec;
-    FILE* archivo = abrir_archivo(ARCH_TXT,"rt");
+    FILE* archivoOrig = abrir_archivo(ARCH_TXT,"rt");
+    FILE* archbinario = abrir_archivo(ARCH_BIN,"wb");
+    FILE* archErrores = abrir_archivo(ARCH_ERRORES,"wt");
+
+    archivo_variable_a_binario(archbinario,archivoOrig,archErrores);
 
     printf("Ingrese la fecha de proceso:\n");
     printf("Dia:");
@@ -34,13 +38,10 @@ int main()
        scanf("%d",&fec.dia);
        printf("Mes: ");
        scanf("%d",&fec.mes);
-       printf("Año: ");
+       printf("Aï¿½o: ");
        scanf("%d",&fec.anio);
     }
-    Socio soc = {41162300, "Juan Perez", {13, 1, 1998}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'A', {1, 1, 2023}};
 
-
-    validaciones(&soc,&fec);
 
 
 do{

@@ -6,6 +6,9 @@
 #include <string.h>
 
 #define ARCH_TXT "mi_ruta/socios.txt"
+#define ARCH_BIN "mi_ruta/socios.dat"
+#define ARCH_ERRORES "mi_ruta/socios_errores.txt"
+
 #define TODO_OK 1
 #define ERROR 0
 #define ERR_FECHA 0
