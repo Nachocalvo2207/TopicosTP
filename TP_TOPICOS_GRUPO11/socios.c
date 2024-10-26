@@ -149,7 +149,9 @@ int validar_fecha(t_fecha* fecha)
 
 int validar_sexo(const char sexo)
 {
-    if( sexo != 'M' && sexo != 'F' && sexo != 'O' )
+    char sexo_mayus = aMayuscula(sexo);
+
+    if( sexo_mayus != 'M' && sexo_mayus != 'F' && sexo_mayus != 'O' )
         return ERROR;
 
     return TODO_OK;
@@ -178,7 +180,14 @@ int validar_afliacion(Socio* soc,t_fecha* fechaProc)
 
 int validar_categoria(const char* categoria)
 {
-    if(strcmp(categoria, "MENOR") ||strcmp(categoria, "CADETE") || strcmp(categoria, "ADULTO") || strcmp(categoria, "VITALICIO")  || strcmp(categoria, "HONORARIO") || strcmp(categoria, "JUBILADO")  )
+    char categoria_mayus[50];
+
+    int i;
+    for (i = 0; categoria[i] != '\0' && i < sizeof(categoria_mayus) - 1; i++) {
+        categoria_mayus[i] = aMayuscula(categoria[i]);
+    }
+    categoria_mayus[i] = '\0';
+    if(strcmp(categoria_mayus, "MENOR") ||strcmp(categoria_mayus, "CADETE") || strcmp(categoria_mayus, "ADULTO") || strcmp(categoria_mayus, "VITALICIO")  || strcmp(categoria_mayus, "HONORARIO") || strcmp(categoria_mayus, "JUBILADO")  )
         return TODO_OK;
 
     return ERROR;
@@ -215,7 +224,8 @@ int validar_ultima_cuota(Socio* soc, t_fecha* fechaProc)
 
 int validar_estado(const char estado)
 {
-    if( estado != 'A' && estado != 'I' )
+    char estado_mayus = aMayuscula(estado);
+    if( estado_mayus != 'A' && estado_mayus != 'I' )
     {
         return ERROR;
     }
@@ -344,58 +354,63 @@ void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
     {
         printf("Ingrese el nombre y apellido: \n");
         scanf("%s",socio.ApYNom);
-        printf("Ingrese la fecha de nacimiento:\n");
-        printf("Dia:");
+        fflush(stdin);
+        printf("Ingrese la fecha de nacimiento: \n");
+        printf("Dia: \n");
         scanf("%d",&socio.fechaNac.dia);
-        printf("Mes:");
+        fflush(stdin);
+        printf("Mes: \n");
         scanf("%d",&socio.fechaNac.mes);
-        printf("A%co:",164);
+        fflush(stdin);
+        printf("A%co: \n",164);
         scanf("%d",&socio.fechaNac.anio);
+        fflush(stdin);
         printf("Ingrese el sexo: \n");
         scanf("%c",&socio.sexo);
+        fflush(stdin);
         printf("Ingrese la fecha de afiliacion:\n");
-        printf("Dia:");
+        printf("Dia: \n");
         scanf("%d",&socio.fechaAfiliacion.dia);
-        printf("Mes:");
+        fflush(stdin);
+        printf("Mes: \n");
         scanf("%d",&socio.fechaAfiliacion.mes);
-        printf("A%co:",164);
+        fflush(stdin);
+        printf("A%co: \n",164);
         scanf("%d",&socio.fechaAfiliacion.anio);
-        printf("Ingrese el sexo: \n");
-        scanf("%c",&socio.sexo);
+        fflush(stdin);
         printf("Ingrese la categoria: \n");
         scanf("%s",socio.categoria);
         printf("Ingrese la fecha de la ultima cuota paga: \n");
-        printf("Dia:");
+        printf("Dia: \n");
         scanf("%d",&socio.UltCuotaPaga.dia);
-        printf("Mes:");
+        fflush(stdin);
+        printf("Mes: \n");
         scanf("%d",&socio.UltCuotaPaga.mes);
-        printf("A%co:",164);
+        fflush(stdin);
+        printf("A%co: \n",164);
         scanf("%d",&socio.UltCuotaPaga.anio);
-        printf("Ingrese el sexo: \n");
-        scanf("%c",&socio.sexo);
+        fflush(stdin);
         printf("Ingrese el estado: \n");
         scanf("%c",&socio.estado);
+        fflush(stdin);
         printf("Ingrese la fecha de baja:  \n");
-        scanf("%d/%d/%d",&socio.fechaBaja.dia,&socio.fechaBaja.mes,&socio.fechaBaja.anio);
+        printf("Dia: \n");
+        scanf("%d",&socio.fechaBaja.dia);
+        fflush(stdin);
+        printf("Mes: \n");
+        scanf("%d",&socio.fechaBaja.mes);
+        fflush(stdin);
+        printf("A%co: \n",164);
+        scanf("%d",&socio.fechaBaja.anio);
+        fflush(stdin);
 
         if(validaciones(&socio,fecha))
         {
-            int cont = 0;
             fwrite(&socio,sizeof(Socio),1,arch);
-            if(indice->max == indice->tam)
-                indice_lleno(indice,sizeof(t_reg_indice));
-
-            memmove(indice->arr+pos+1,indice->arr+pos,(indice->tam-pos)*sizeof(t_reg_indice));
-            indice->arr[pos].dni = socio.DNI;
-            fseek(arch,0,SEEK_SET);
-            fread(&socio,sizeof(Socio),1,arch);
-            while(!feof(arch))
-            {
-                cont++;
-                fread(&socio,sizeof(Socio),1,arch);
-            }
-            indice->arr[pos].nro_reg = cont;
-            indice->tam++;
+            fclose(arch);
+            indice_vaciar(indice);
+            indice_crear(indice);
+            indice_cargar(indice,ARCH_BIN);
 
         }else {
             printf("Los datos ingresados no son validos. \n");

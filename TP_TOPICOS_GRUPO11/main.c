@@ -59,9 +59,11 @@ int main()
     printf("%d",indice_buscar(&indice,&reg_indice));
 do{
     mostrar_menu(&opcion);
+
     switch(opcion){
         case 'A':
             alta_socio(&indice,ARCH_BIN,&fec);
+            mostrar_ordenado(&indice,ARCH_BIN);
             break;
         case 'B':
 

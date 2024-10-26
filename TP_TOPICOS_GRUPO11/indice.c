@@ -81,7 +81,7 @@ int indice_buscar(t_indice* indice, t_reg_indice* reg_indice)
         if(aux->arr[i].dni == reg_indice->dni)
         {
             reg_indice->nro_reg = aux->arr[i].nro_reg;
-            return i;
+            return TODO_OK;
         }
     }
     return NO_EXISTE_DNI;
@@ -113,6 +113,13 @@ int indice_lleno(t_indice* indice, unsigned tam)
     indice->tam *= AGRANDAR;
 
     return TODO_OK;
+}
+
+void indice_vaciar(t_indice *indice) {
+    free(indice->arr);
+    indice->arr = NULL;
+    indice->tam = 0;
+    indice->max = 0;
 }
 
 /* Modificación: Si existe la clave que se quiere modificar y el estado del registro no es ‘I’, actualizar la información deseada. Si se detectan errores, se ignora todo lo ingresado. */
