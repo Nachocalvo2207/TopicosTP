@@ -439,6 +439,37 @@ while(*letra<'A'||*letra>'G'){
 fflush(stdin);
 }
 
+void mostrar_informacion(t_indice *indice, const char *path){
+    FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
+    if(!arch)
+    {
+        printf("Error de lectura de archivo\n");
+        exit(1);
+    }
+    Socio socio;
+    printf("Ingrese el DNI a consultar: ");
+    scanf("%ld",&socio.DNI);
+    t_reg_indice dni_buscar;
+    dni_buscar.dni = socio.DNI;
+    if(!validar_DNI(socio.DNI))
+    {
+        puts("DNI Invalido\n");
+        exit(1);
+    }
+    int pos = indice_buscar(indice,&dni_buscar);
+    if(!pos){
+        puts("DNI no encontrado\n");
+        exit(1);
+    }else{
+        fseek(arch, dni_buscar.nro_reg * sizeof(Socio), SEEK_SET);
+        fread(&socio, sizeof(socio), 1, arch);
+        printf("%ld %-30s %d/%d/%d \t%c \t%d/%d/%d \t%-10s \t%d/%d/%d\t\t%-6c\t%d/%d/%d\n", socio.DNI,socio.ApYNom,socio.fechaNac.dia,socio.fechaNac.mes,socio.fechaNac.anio,socio.sexo,
+               socio.fechaAfiliacion.dia,socio.fechaAfiliacion.mes,socio.fechaAfiliacion.anio,socio.categoria,socio.UltCuotaPaga.dia,
+               socio.UltCuotaPaga.mes,socio.UltCuotaPaga.anio,socio.estado,socio.fechaBaja.dia,socio.fechaBaja.mes,socio.fechaBaja.anio);
+    }
+    fclose(arch);
+}
+
 void modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
 {
     FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
