@@ -2,6 +2,7 @@
 
 void mostrar_menu(char * letra){
 //Mostrar menu
+fflush(stdin);
 printf("Ingrese la letra de la operaci%cn a realizar:\na. Alta\nb. Baja\nc. Modificaci%cn\nd. Mostrar informaci%cn de un socio\ne. Listado de socios ordenados por clave (DNI)\nf. Salir\n",162,162,162);
 //leer por teclado la opcion y convertirla a mayuscula
 scanf("%c",letra);

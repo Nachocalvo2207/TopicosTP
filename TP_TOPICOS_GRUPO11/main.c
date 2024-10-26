@@ -10,51 +10,54 @@
 //    DNI: 42247089
 //
 //    Apellido: Calvo
-//    Nombre: Ignacio Facund
+//    Nombre: Ignacio Facundo
 //    DNI: 41162300
 
 
 int main()
 {   char opcion;
     ///Aca vamos a poner la fecha de inicio entiendo
-    t_fecha fecha = {22,7,2024};
+    t_fecha fec;
 ///    abrir_archivo(ARCH_TXT,"r");
 
-    ///printf("Ingrese la fecha de proceso: DD/MM/AAAA: ");
-    ///scanf("%d/%d/%d",&fec.dia,&fec.mes,&fec.anio);
-///   validar_fecha(&fec);
+    printf("Ingrese la fecha de proceso:\n");
+    printf("Dia:");
+    scanf("%d",&fec.dia);
+    printf("Mes:");
+    scanf("%d",&fec.mes);
+    printf("A%co:",164);
+    scanf("%d",&fec.anio);
+
+    while(!validar_fecha(&fec)){
+       printf("Ingrese fecha v%clida: ",160);
+       printf("Dia: ");
+       scanf("%d",&fec.dia);
+       printf("Mes: ");
+       scanf("%d",&fec.mes);
+       printf("Año: ");
+       scanf("%d",&fec.anio);
+    }
     Socio soc = {41162300, "Juan Perez", {13, 1, 1998}, 'O', {1, 1, 2021}, "MENOR", {1, 1, 2024}, 'A', {1, 1, 2023}};
-    validaciones(&soc,&fecha);
-// mostrar_menu(&opcion);
-//
-//do{
-//    mostrar_menu(&opcion);
-//    switch(opcion){
-//        case 'A':
-//
-//            break;
-//        case 'B':
-//
-//            break;
-//        case 'C':
-//
-//            break;
-//        case 'D':
-//
-//            break;
-//    }
-//}while(opcion!='F');
+    validaciones(&soc,&fec);
 
+do{
+    mostrar_menu(&opcion);
+    switch(opcion){
+        case 'A':
 
-///    validar_DNI(soc.DNI);
-///    validar_nacimiento(&soc.fechaNac,&fec);
-///    validar_sexo(soc.sexo);
-///    generar_socios
-///    validar_afliacion(&soc,&fec);
-///    validar_categoria(soc.categoria);
-///    validar_ultima_cuota(&soc,&fec);
-///    validar_estado(soc.estado);
-///    validar_fecha_de_baja(&soc);
+            break;
+        case 'B':
+
+            break;
+        case 'C':
+
+            break;
+        case 'D':
+
+            break;
+    }
+}while(opcion!='F');
+
     return 0;
 
 }
