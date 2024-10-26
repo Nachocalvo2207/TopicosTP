@@ -21,7 +21,6 @@ void indice_crear(t_indice* indice);
 int indice_cargar(t_indice* indice,const char* path);
 int indice_lleno(t_indice* indice, unsigned tam);
 int indice_vacio(const t_indice *indice);
-int mostrar_ordenado(t_indice *indice, const char *path);
 int indice_buscar(t_indice* indice, t_reg_indice* reg_indice);
 
 int comparar_t_indice (void* a,void* b);

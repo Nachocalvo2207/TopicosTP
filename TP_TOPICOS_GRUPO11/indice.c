@@ -154,27 +154,6 @@ int modificar_socio(t_indice* indice)
 
 
 } */
-int mostrar_ordenado(t_indice *indice, const char *path) {
-    FILE *arch = fopen(path, "rb");
-
-    Socio socio;
-
-    if (!arch) {
-        printf("Error de lectura de archivo\n");
-        return ERR_ARCH;
-    }
-    printf("DNI\tApellido y nombre\tFecha Nac.\tSexo\tFecha Afil.\tCategor%ca\tFecha %clt. cuota paga\tEstado\tFecha Baja\n",161,163);
-
-    for (int i = 0; i < indice->tam; i++) {
-        fseek(arch, indice->arr[i].nro_reg * sizeof(Socio), SEEK_SET);
-        fread(&socio, sizeof(socio), 1, arch);
-        printf("%ld %s  %d/%d/%d %c %d/%d/%d %s %d/%d/%d %c %d/%d/%d\n", socio.DNI,socio.ApYNom,socio.fechaNac.dia,socio.fechaNac.mes,socio.fechaNac.anio,socio.sexo,
-               socio.fechaAfiliacion.dia,socio.fechaAfiliacion.mes,socio.fechaAfiliacion.anio,socio.categoria,socio.UltCuotaPaga.dia,
-               socio.UltCuotaPaga.mes,socio.UltCuotaPaga.anio,socio.estado,socio.fechaBaja.dia,socio.fechaBaja.mes,socio.fechaBaja.anio);
-    }
-    fclose(arch);
-    return TODO_OK;
-}
 
 
 

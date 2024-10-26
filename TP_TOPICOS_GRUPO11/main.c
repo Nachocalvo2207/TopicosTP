@@ -72,6 +72,9 @@ do{
         case 'D':
 
             break;
+        case 'E':
+        mostrar_ordenado(&indice,ARCH_BIN);
+            break;
     }
 }while(opcion!='F');
 

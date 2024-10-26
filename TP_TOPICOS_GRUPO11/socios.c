@@ -270,7 +270,7 @@ FILE* abrir_archivo(const char* filename, const char* modo)
     }
     return archivo;
 }
-///30567845;Lopez, Juan Carlos;1990/05/12;M;2015-08-20;ADULTO;2023-09-15;A;
+
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fecha* fecha){
     char registro [TAM_REGISTRO];
     Socio socio;
@@ -401,5 +401,31 @@ void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
             printf("Los datos ingresados no son validos. \n");
         }
     }
+
+}
+
+int mostrar_ordenado(t_indice *indice, const char *path) {
+    FILE *arch = fopen(path, "rb");
+
+    Socio socio;
+
+    if (!arch) {
+        printf("Error de lectura de archivo\n");
+        return ERR_ARCH;
+    }
+    printf("DNI\t Apellido y nombre\t\tFecha Nac.\tSexo\tFecha Afil.\tCategor%ca\tFecha %clt. cuota\tEstado\tFecha Baja\n",161,163);
+
+    for (int i = 0; i < indice->tam; i++) {
+        fseek(arch, indice->arr[i].nro_reg * sizeof(Socio), SEEK_SET);
+        fread(&socio, sizeof(socio), 1, arch);
+        printf("%ld %-30s %d/%d/%d \t%c \t%d/%d/%d \t%-10s \t%d/%d/%d\t\t%-6c\t%d/%d/%d\n", socio.DNI,socio.ApYNom,socio.fechaNac.dia,socio.fechaNac.mes,socio.fechaNac.anio,socio.sexo,
+               socio.fechaAfiliacion.dia,socio.fechaAfiliacion.mes,socio.fechaAfiliacion.anio,socio.categoria,socio.UltCuotaPaga.dia,
+               socio.UltCuotaPaga.mes,socio.UltCuotaPaga.anio,socio.estado,socio.fechaBaja.dia,socio.fechaBaja.mes,socio.fechaBaja.anio);
+    }
+    fclose(arch);
+    return TODO_OK;
+}
+
+void mostrar_informacion(){
 
 }
