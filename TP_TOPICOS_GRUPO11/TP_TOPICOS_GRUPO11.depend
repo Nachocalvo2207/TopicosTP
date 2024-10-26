@@ -5,19 +5,19 @@
 	"socios.h"
 	"indice.h"
 
-1729940837 source:c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\main.c
+1729947506 source:c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\main.c
 	<stdio.h>
 	<stdlib.h>
 	"socios.h"
 	"indice.h"
 
-1729936849 c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\socios.h
+1729947503 c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\socios.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"indice.h"
 
-1729940360 source:c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\socios.c
+1729947506 source:c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\socios.c
 	"socios.h"
 	"indice.h"
 
@@ -37,7 +37,7 @@
 	"socios.h"
 	"indice.h"
 
-1729940926 source:c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\indice.c
+1729947506 source:c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\indice.c
 	"socios.h"
 	"indice.h"
 

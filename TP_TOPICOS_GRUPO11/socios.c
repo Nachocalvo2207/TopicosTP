@@ -222,10 +222,10 @@ int validar_ultima_cuota(Socio* soc, t_fecha* fechaProc)
     return ERROR; // Fecha inválida
 }
 
-int validar_estado(const char estado)
+int validar_estado(char* estado)
 {
-    char estado_mayus = aMayuscula(estado);
-    if( estado_mayus != 'A' && estado_mayus != 'I' )
+    *estado = aMayuscula(*estado);
+    if( *estado != 'A' && *estado != 'I' )
     {
         return ERROR;
     }
@@ -319,7 +319,7 @@ int validaciones(Socio* socio, t_fecha* fechaProc)
     && validar_afliacion(socio,fechaProc)
     && validar_categoria(socio->categoria)
     && validar_ultima_cuota(socio,fechaProc)
-    && validar_estado(socio->estado)
+    && validar_estado(&(socio->estado))
     && validar_fecha_de_baja(socio)
     )
         return TODO_OK;
@@ -328,7 +328,7 @@ int validaciones(Socio* socio, t_fecha* fechaProc)
 
 void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
 {
-    FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
+    FILE* arch = abrir_archivo(ARCH_BIN,"ab");
     if(!arch)
     {
         printf("Error de lectura de archivo\n");
@@ -392,6 +392,7 @@ void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
         fflush(stdin);
         printf("Ingrese el estado: \n");
         scanf("%c",&socio.estado);
+        socio.estado = aMayuscula(socio.estado);
         fflush(stdin);
         printf("Ingrese la fecha de baja:  \n");
         printf("Dia: \n");
@@ -406,6 +407,8 @@ void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
 
         if(validaciones(&socio,fecha))
         {
+            //Necesito que me agregue al final del archivo, necesito que agregue tamanio de socio
+
             fwrite(&socio,sizeof(Socio),1,arch);
             fclose(arch);
             indice_vaciar(indice);
@@ -441,33 +444,4 @@ int mostrar_ordenado(t_indice *indice, const char *path) {
     return TODO_OK;
 }
 
-void mostrar_informacion(t_indice *indice, const char *path){
-    FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
-    if(!arch)
-    {
-        printf("Error de lectura de archivo\n");
-        exit(1);
-    }
-    Socio socio;
-    printf("Ingrese el DNI a consultar: ");
-    scanf("%ld",&socio.DNI);
-    t_reg_indice dni_buscar;
-    dni_buscar.dni = socio.DNI;
-    if(!validar_DNI(socio.DNI))
-    {
-        puts("DNI Invalido\n");
-        exit(1);
-    }
-    int pos = indice_buscar(indice,&dni_buscar);
-    if(!pos){
-        puts("DNI no encontrado\n");
-        exit(1);
-    }else{
-        fseek(arch, dni_buscar.nro_reg * sizeof(Socio), SEEK_SET);
-        fread(&socio, sizeof(socio), 1, arch);
-        printf("%ld %-30s %d/%d/%d \t%c \t%d/%d/%d \t%-10s \t%d/%d/%d\t\t%-6c\t%d/%d/%d\n", socio.DNI,socio.ApYNom,socio.fechaNac.dia,socio.fechaNac.mes,socio.fechaNac.anio,socio.sexo,
-               socio.fechaAfiliacion.dia,socio.fechaAfiliacion.mes,socio.fechaAfiliacion.anio,socio.categoria,socio.UltCuotaPaga.dia,
-               socio.UltCuotaPaga.mes,socio.UltCuotaPaga.anio,socio.estado,socio.fechaBaja.dia,socio.fechaBaja.mes,socio.fechaBaja.anio);
-    }
-    fclose(arch);
-}
+

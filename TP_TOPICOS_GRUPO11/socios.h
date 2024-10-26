@@ -62,7 +62,7 @@ int validar_nacimiento(Socio* soc, t_fecha* fechaProc);
 int validar_sexo(const char sexo);
 int validar_afliacion(Socio* soc,t_fecha* fechaProc);
 int validar_ultima_cuota(Socio* soc,t_fecha* fechaProc);
-int validar_estado(const char estado);
+int validar_estado(char* estado);
 int validar_fecha_de_baja(Socio* soc);
 int validaciones(Socio* socio,t_fecha* fechaProc);
 

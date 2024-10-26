@@ -63,7 +63,6 @@ do{
     switch(opcion){
         case 'A':
             alta_socio(&indice,ARCH_BIN,&fec);
-            mostrar_ordenado(&indice,ARCH_BIN);
             break;
         case 'B':
 
@@ -72,7 +71,7 @@ do{
 
             break;
         case 'D':
-        mostrar_informacion(&indice, ARCH_BIN);
+
             break;
         case 'E':
         mostrar_ordenado(&indice,ARCH_BIN);
