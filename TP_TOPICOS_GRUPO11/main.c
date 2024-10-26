@@ -72,7 +72,7 @@ do{
 
             break;
         case 'D':
-
+        mostrar_informacion(&indice, ARCH_BIN);
             break;
         case 'E':
         mostrar_ordenado(&indice,ARCH_BIN);
