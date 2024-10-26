@@ -1,4 +1,5 @@
 #include "socios.h"
+#include "indice.h"
 
 void mostrar_menu(char * letra){
 //Mostrar menu

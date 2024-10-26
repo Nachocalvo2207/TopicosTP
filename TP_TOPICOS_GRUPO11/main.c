@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "socios.h"
+#include "indice.h"
 
 //
 //// Integrantes del grupo:
@@ -44,6 +45,14 @@ int main()
 
     archivo_variable_a_binario(archbinario,archOrig,archErrores);
 
+    fclose(archOrig);
+    fclose(archErrores);
+
+    t_indice indice;
+
+    indice_crear(&indice);
+    fclose(archbinario);
+    indice_cargar(&indice,ARCH_ERRORES);
 do{
     mostrar_menu(&opcion);
     switch(opcion){
