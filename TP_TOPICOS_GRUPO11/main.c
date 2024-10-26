@@ -18,11 +18,7 @@ int main()
 {   char opcion;
     ///Aca vamos a poner la fecha de inicio entiendo
     t_fecha fec;
-    FILE* archivoOrig = abrir_archivo(ARCH_TXT,"rt");
-    FILE* archbinario = abrir_archivo(ARCH_BIN,"wb");
-    FILE* archErrores = abrir_archivo(ARCH_ERRORES,"wt");
 
-    archivo_variable_a_binario(archbinario,archivoOrig,archErrores);
 
     printf("Ingrese la fecha de proceso:\n");
     printf("Dia:");
@@ -42,7 +38,11 @@ int main()
        scanf("%d",&fec.anio);
     }
 
+    FILE* archOrig = abrir_archivo(ARCH_TXT,"rt");
+    FILE* archbinario = abrir_archivo(ARCH_BIN,"wb");
+    FILE* archErrores = abrir_archivo(ARCH_ERRORES,"wt");
 
+    archivo_variable_a_binario(archbinario,archOrig,archErrores);
 
 do{
     mostrar_menu(&opcion);

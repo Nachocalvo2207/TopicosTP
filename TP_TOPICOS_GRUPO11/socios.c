@@ -186,7 +186,14 @@ int validar_categoria(const char* categoria)
 int validar_ultima_cuota(Socio* soc, t_fecha* fechaProc)
 {
     /// Validar si las fechas son correctas
-    if (validar_fecha(&soc->UltCuotaPaga)  && validar_fecha(fechaProc) )
+    if (!validar_fecha(&soc->UltCuotaPaga) )
+        {
+            soc->UltCuotaPaga.dia = fechaProc->dia;
+            soc->UltCuotaPaga.mes = fechaProc->mes;
+            soc->UltCuotaPaga.anio = fechaProc->anio;
+
+        }
+    if ( validar_fecha(fechaProc) )
     {
         /// Validar que la fecha de la última cuota <= fecha de procesamiento
         if ((soc->UltCuotaPaga.anio < fechaProc->anio) ||
@@ -201,6 +208,7 @@ int validar_ultima_cuota(Socio* soc, t_fecha* fechaProc)
 
         }
     }
+
     return ERROR; // Fecha inválida
 }
 
@@ -216,12 +224,19 @@ int validar_estado(const char estado)
 
 int validar_fecha_de_baja(Socio* soc)
 {
+
+   ///Valido que el estado sea A
+    if( soc->estado == 'A') {
+        soc->fechaBaja.dia = 1;
+        soc->fechaBaja.mes = 1;
+        soc->fechaBaja.anio = 1900;
+        return SOCIO_ACTIVO;
+    }
+
     ///Valido la fecha de baja
     if(!validar_fecha(&soc->fechaBaja))
         return ERR_FECHA;
-   ///Valido que el estado sea A, a su vez la fecha FICTICIA para asumir que esta activo es 1/1/1900
-    if( (soc->estado == 'A') && (soc->fechaBaja.dia == 1 && soc->fechaBaja.mes == 1 && soc->fechaBaja.anio == 1900  ) )
-        return SOCIO_ACTIVO;
+
    ///Chequeo que el socio este INACTIVO
     if( soc->estado == 'I')
     {

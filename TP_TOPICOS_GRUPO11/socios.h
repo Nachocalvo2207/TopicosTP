@@ -13,7 +13,7 @@
 #define ERROR 0
 #define ERR_FECHA 0
 #define ERR_DNI 0
-#define SOCIO_ACTIVO 0
+#define SOCIO_ACTIVO 1
 #define ERR_ARCH 0
 
 #define DNI_MIN 100000
