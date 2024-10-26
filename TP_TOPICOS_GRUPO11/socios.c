@@ -422,6 +422,117 @@ void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
 
 }
 
+void mostrar_menu_modificacion(char * letra){
+//Mostrar menu
+fflush(stdin);
+printf("Ingrese la letra de la operaci%cn a realizar:\na. Modificar ayn \nb. Fecha Nac\nc. sexo\nd. Fecha afil\ne. categoria\nf. fecha ultima cuota paga\n",162);
+//leer por teclado la opcion y convertirla a mayuscula
+scanf("%c",letra);
+*letra=aMayuscula(*letra);
+/////validar que sea correcta la opci�n
+while(*letra<'A'||*letra>'G'){
+    printf("Ingrese opci%cn v%clida: ",162,160);
+    fflush(stdin);
+    scanf("%c",letra);
+    *letra=aMayuscula(*letra);
+}
+fflush(stdin);
+}
+
+void modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
+{
+    FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
+    if(!arch)
+    {
+        printf("Error de lectura de archivo\n");
+        exit(1);
+    }
+    Socio socio;
+
+    printf("Ingrese el DNI: ");
+    scanf("%ld",&socio.DNI);
+    t_reg_indice dni_buscar;
+    dni_buscar.dni = socio.DNI;
+    if(!validar_DNI(socio.DNI))
+    {
+        puts("DNI Invalido\n");
+        exit(1);
+    }
+    char opcion;
+
+    if(indice_buscar(indice,&dni_buscar))
+    {
+        fseek(arch,indice->arr->nro_reg * sizeof(Socio),SEEK_SET);
+
+        do{
+            mostrar_menu_modificacion(&opcion);
+            switch(opcion){
+                case 'A':
+                    printf("Ingrese el nombre y apellido: \n");
+                    scanf("%s",socio.ApYNom);
+                    normalizar_a_y_n(socio.ApYNom);
+                    break;
+                case 'B':
+                    printf("Ingrese la fecha de nacimiento: \n");
+                    printf("Dia: \n");
+                    scanf("%d",&socio.fechaNac.dia);
+                    fflush(stdin);
+                    printf("Mes: \n");
+                    scanf("%d",&socio.fechaNac.mes);
+                    fflush(stdin);
+                    printf("A%co: \n",164);
+                    scanf("%d",&socio.fechaNac.anio);
+                    validar_fecha(&socio.fechaNac);
+                    fflush(stdin);
+                    break;
+                case 'C':
+                    printf("Ingrese el sexo: \n");
+                    scanf("%c",&socio.sexo);
+                    fflush(stdin);
+                    socio.sexo = aMayuscula(socio.sexo);
+                    validar_sexo(socio.sexo);
+                    break;
+                case 'D':
+                    printf("Ingrese la fecha de afiliacion:\n");
+                    printf("Dia: \n");
+                    scanf("%d",&socio.fechaAfiliacion.dia);
+                    fflush(stdin);
+                    printf("Mes: \n");
+                    scanf("%d",&socio.fechaAfiliacion.mes);
+                    fflush(stdin);
+                    printf("A%co: \n",164);
+                    scanf("%d",&socio.fechaAfiliacion.anio);
+                    fflush(stdin);
+                    validar_afliacion(&socio,fecha);
+                    break;
+                case 'E':
+                    printf("Ingrese la categoria: \n");
+                    scanf("%s",socio.categoria);
+                    fflush(stdin);
+                    validar_categoria(socio.categoria);
+                    break;
+                case 'F':
+                    printf("Ingrese la fecha de la ultima cuota paga: \n");
+                    printf("Dia: \n");
+                    scanf("%d",&socio.UltCuotaPaga.dia);
+                    fflush(stdin);
+                    printf("Mes: \n");
+                    scanf("%d",&socio.UltCuotaPaga.mes);
+                    fflush(stdin);
+                    printf("A%co: \n",164);
+                    scanf("%d",&socio.UltCuotaPaga.anio);
+                    fflush(stdin);
+                    validar_ultima_cuota(&socio,fecha);
+                    break;
+            }
+        }while(opcion!='G');
+    }
+
+
+}
+
+
+
 int mostrar_ordenado(t_indice *indice, const char *path) {
     FILE *arch = fopen(path, "rb");
 

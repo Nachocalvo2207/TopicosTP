@@ -65,10 +65,10 @@ do{
             alta_socio(&indice,ARCH_BIN,&fec);
             break;
         case 'B':
-
+///            baja_socio(&indice,ARCH_BIN,&fec);
             break;
         case 'C':
-
+            modificar_socio(&indice,ARCH_BIN,&fec);
             break;
         case 'D':
 
