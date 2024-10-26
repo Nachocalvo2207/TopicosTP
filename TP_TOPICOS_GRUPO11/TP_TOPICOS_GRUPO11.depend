@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1729904202 source:c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\main.c
+1729905657 source:c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\main.c
 	<stdio.h>
 	<stdlib.h>
 	"socios.h"
@@ -17,7 +17,7 @@
 1729903596 source:c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\socios.c
 	"socios.h"
 
-1729903744 c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\socios.h
+1729905553 c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\socios.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

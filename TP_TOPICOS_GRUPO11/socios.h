@@ -5,14 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ARCH_TXT "socios.txt"
-
+#define ARCH_TXT "mi_ruta/socios.txt"
 #define TODO_OK 1
-#define ERROR 3
-#define ERR_FECHA 4
-#define ERR_DNI 1
-#define SOCIO_ACTIVO 1
-#define ERR_ARCH 1;
+#define ERROR 0
+#define ERR_FECHA 0
+#define ERR_DNI 0
+#define SOCIO_ACTIVO 0
+#define ERR_ARCH 0
 
 #define DNI_MIN 100000
 #define DNI_MAX 100000000
