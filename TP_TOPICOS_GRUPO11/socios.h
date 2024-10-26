@@ -63,9 +63,9 @@ int validar_afliacion(Socio* soc,t_fecha* fechaProc);
 int validar_ultima_cuota(Socio* soc,t_fecha* fechaProc);
 int validar_estado(const char estado);
 int validar_fecha_de_baja(Socio* soc);
-int validaciones(Socio* socio, t_fecha* fechaProc);
+int validaciones(Socio* socio,t_fecha* fechaProc);
 
-void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror);
+void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fecha* fecha);
 void cargar_estructura(const char* registro,Socio *socio);
 
 FILE* abrir_archivo(const char* filename, const char* modo);

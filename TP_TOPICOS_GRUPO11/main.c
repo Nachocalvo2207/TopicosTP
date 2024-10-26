@@ -43,16 +43,18 @@ int main()
     FILE* archbinario = abrir_archivo(ARCH_BIN,"wb");
     FILE* archErrores = abrir_archivo(ARCH_ERRORES,"wt");
 
-    archivo_variable_a_binario(archbinario,archOrig,archErrores);
+    archivo_variable_a_binario(archbinario,archOrig,archErrores,&fec);
 
     fclose(archOrig);
     fclose(archErrores);
 
     t_indice indice;
+    t_reg_indice reg_indice;
 
     indice_crear(&indice);
     fclose(archbinario);
-    indice_cargar(&indice,ARCH_ERRORES);
+    indice_cargar(&indice,ARCH_BIN);
+    indice_buscar(&indice,&reg_indice);
 do{
     mostrar_menu(&opcion);
     switch(opcion){

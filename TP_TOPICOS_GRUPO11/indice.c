@@ -84,11 +84,11 @@ int indice_buscar(const t_indice* indice, t_reg_indice* reg_indice)
         if(indice->arr[i].dni == reg_indice->dni)
         {
             reg_indice->nro_reg = indice->arr[i].nro_reg;
-            return TODO_OK;
+            return i;
         }
     }
 
-    return ERR_DNI;
+    return NO_EXISTE_DNI;
 }
 
 void ordenamiento(void* indice,size_t ce,size_t tam,int (*cmp)(void*,void*))
@@ -139,6 +139,45 @@ int indice_lleno(t_indice* indice, unsigned tam)
     return TODO_OK;
 }
 
+/* Modificación: Si existe la clave que se quiere modificar y el estado del registro no es ‘I’, actualizar la información deseada. Si se detectan errores, se ignora todo lo ingresado. */
+/* 
+int modificar_socio(t_indice* indice)
+{
+    FILE* arch = fopen(ARCH_BIN,"r+b");
+    if(!arch)
+    {
+        printf("Error de lectura de archivo\n");
+        return ERR_ARCH;
+    }
+
+    Socio socio;
+    t_reg_indice reg_indice;
+    printf("\n Ingrese el DNI del socio a modificar: \n");
+    scanf("%ld",&reg_indice.dni);
+    if(indice_buscar(indice,&reg_indice) == NO_EXISTE_DNI)
+    {
+        printf("El DNI ingresado no existe\n");
+        return ERR_DNI;
+    }
+
+    fread(&socio,sizeof(Socio),1,arch);
+
+    /*modifico: 
+    ayn
+    fecha nac
+    sexo
+    fecha afil
+    categoria
+    fecha ult cuota paga 
+    while (!feof(arch))
+    {
+        
+    }
+
+    
+
+
+} */
 int mostrar_ordenado(t_indice *indice, const char *path) {
     FILE *arch = fopen(path, "rb");
 

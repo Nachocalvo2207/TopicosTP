@@ -270,16 +270,15 @@ FILE* abrir_archivo(const char* filename, const char* modo)
     }
     return archivo;
 }
-///30567845;Lopez, Juan Carlos;1990-05-12;M;2015-08-20;ADULTO;2023-09-15;A;
-void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror){
+///30567845;Lopez, Juan Carlos;1990/05/12;M;2015-08-20;ADULTO;2023-09-15;A;
+void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fecha* fecha){
     char registro [TAM_REGISTRO];
     Socio socio;
-    t_fecha fecha;
     while(fgets(registro,TAM_REGISTRO,ptexto)){
         cargar_estructura(registro,&socio);
         // VALIDACIONES ACA, ENVIAR SOCIO YA CARGADO. CREAR FUNCIÓN CON TODAS LAS VALIDACIONES JUNTAS
         //SI TODO OK, ESCRIBE EN EL BINARIO
-        if(validaciones(&socio,&fecha)){
+        if(validaciones(&socio,fecha)){
                 fwrite(&socio,sizeof(Socio),1,pbinario);
         }
         else{

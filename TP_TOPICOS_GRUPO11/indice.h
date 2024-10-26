@@ -2,7 +2,7 @@
 #define INDICE_H_INCLUDED
 
 #define TAM_INICIAL 100
-
+#define NO_EXISTE_DNI 0
 #define ERR_MEM 0;
 
 typedef struct {
@@ -21,6 +21,7 @@ int indice_cargar(t_indice* indice,const char* path);
 int indice_lleno(t_indice* indice, unsigned tam);
 int indice_vacio(const t_indice *indice);
 int mostrar_ordenado(t_indice *indice, const char *path);
+int indice_buscar(const t_indice* indice, t_reg_indice* reg_indice);
 
 int comparar_reg_indice (void* a,void* b);
 void ordenamiento(void* indice,size_t ce,size_t tam,int (*cmp)(void*,void*));
