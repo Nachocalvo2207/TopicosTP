@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ARCH_TXT "mi_ruta/socios.txt"
+#define ARCH_TXT "mi_ruta/socios_bien.txt"
 #define ARCH_BIN "mi_ruta/socios.dat"
 #define ARCH_ERRORES "mi_ruta/socios_errores.txt"
 

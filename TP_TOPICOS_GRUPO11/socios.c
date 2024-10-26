@@ -270,7 +270,7 @@ FILE* abrir_archivo(const char* filename, const char* modo)
     }
     return archivo;
 }
-
+///30567845;Lopez, Juan Carlos;1990-05-12;M;2015-08-20;ADULTO;2023-09-15;A;
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror){
     char registro [TAM_REGISTRO];
     Socio socio;

@@ -13,7 +13,8 @@ void indice_crear(t_indice* indice)
     indice->tam = 0;
 }
 
-
+/* int indice_buscar (const t_indice*, t_reg_indice* reg_indice): si el dni existe deja el registro en reg_ind;
+ */
 
 
 int indice_cargar(t_indice* indice,const char* path)
@@ -43,6 +44,51 @@ int indice_cargar(t_indice* indice,const char* path)
     fclose(arch);
     return TODO_OK;
 
+}
+
+int indice_vacio(const t_indice *indice)
+{
+    if(indice->tam == 0)
+        printf("El indice se encuentra vacio\n");
+    
+    return TODO_OK;
+}
+
+
+//A esto agregar que se debe modificar en el .bin
+int indice_eliminar(t_indice* indice, t_reg_indice reg_indice)
+{
+    int i;
+    for(i=0;i<indice->tam;i++)
+    {
+        if(indice->arr[i].dni == reg_indice.dni)
+        {
+            for(int j=i;j<indice->tam-1;j++)
+            {
+                indice->arr[j] = indice->arr[j+1];
+            }
+            indice->tam--;
+            return TODO_OK;
+        }
+    }
+
+    return ERR_DNI;
+}
+
+
+
+int indice_buscar(const t_indice* indice, t_reg_indice* reg_indice)
+{
+    for(int i=0;i<indice->tam;i++)
+    {
+        if(indice->arr[i].dni == reg_indice->dni)
+        {
+            reg_indice->nro_reg = indice->arr[i].nro_reg;
+            return TODO_OK;
+        }
+    }
+
+    return ERR_DNI;
 }
 
 void ordenamiento(void* indice,size_t ce,size_t tam,int (*cmp)(void*,void*))
