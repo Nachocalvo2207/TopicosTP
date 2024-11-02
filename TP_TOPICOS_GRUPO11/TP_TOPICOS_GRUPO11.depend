@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1729953101 source:c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\main.c
+1729954459 source:c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\main.c
 	<stdio.h>
 	<stdlib.h>
 	"socios.h"
@@ -21,7 +21,7 @@
 	"socios.h"
 	"indice.h"
 
-1729953120 c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\socios.h
+1730507450 c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\socios.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -29,11 +29,11 @@
 
 1729583778 source:c:\users\iaras\desktop\ppp.c
 
-1729953120 source:c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\socios.c
+1730507450 source:c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\socios.c
 	"socios.h"
 	"indice.h"
 
-1729952292 source:c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\indice.c
+1729954451 source:c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\indice.c
 	"socios.h"
 	"indice.h"
 
@@ -43,5 +43,5 @@
 
 1729936993 c:\users\flore\desktop\nacho\topicos\github\topicostp\tp_topicos_grupo11\indice.h
 
-1729952292 c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\indice.h
+1729954451 c:\users\iaras\desktop\topicostp\tp_topicos_grupo11\indice.h
 

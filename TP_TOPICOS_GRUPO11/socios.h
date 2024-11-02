@@ -6,7 +6,7 @@
 #include <string.h>
 #include "indice.h"
 
-#define ARCH_TXT "mi_ruta/socios_bien.txt"
+#define ARCH_TXT "mi_ruta/socios.txt"
 #define ARCH_BIN "mi_ruta/socios.dat"
 #define ARCH_ERRORES "mi_ruta/socios_errores.txt"
 
@@ -56,6 +56,7 @@ int normalizar_a_y_n(char * s);
 int tiene_coma(char * s);
 
 void mostrar_menu(char * letra);
+void mostrar_menu_modificacion(char * letra);
 
 int validar_DNI(const int DNI);
 int validar_fecha(t_fecha* fecha);
@@ -69,9 +70,10 @@ int validaciones(Socio* socio,t_fecha* fechaProc);
 void mostrar_informacion(t_indice *indice, const char *path);
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fecha* fecha);
 void cargar_estructura(const char* registro,Socio *socio);
-void alta_socio(t_indice* indice,const char* path,t_fecha* fecha);
+int alta_socio(t_indice* indice,const char* path,t_fecha* fecha);
+int modificar_socio(t_indice* indice,const char* path,t_fecha* fecha);
 int mostrar_ordenado(t_indice *indice, const char *path);
 FILE* abrir_archivo(const char* filename, const char* modo);
-void baja_socio(t_indice* indice,const char *path);
+int baja_socio(t_indice* indice,const char *path);
 
 #endif // SOCIOS_H_INCLUDED

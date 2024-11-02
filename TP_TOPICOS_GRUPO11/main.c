@@ -17,9 +17,7 @@
 
 int main()
 {   char opcion;
-    ///Aca vamos a poner la fecha de inicio entiendo
     t_fecha fec;
-
 
     printf("Ingrese la fecha de proceso:\n");
     printf("Dia:");
@@ -49,9 +47,6 @@ int main()
     fclose(archErrores);
 
     t_indice indice;
-    t_reg_indice reg_indice;
-
-    reg_indice.dni=30567845;
 
     indice_crear(&indice);
     fclose(archbinario);
@@ -80,5 +75,5 @@ do{
 }while(opcion!='F');
 
     return 0;
-
+    indice_vaciar(&indice);
 }

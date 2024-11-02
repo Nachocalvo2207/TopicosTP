@@ -23,11 +23,7 @@ int indice_lleno(t_indice* indice, unsigned tam);
 int indice_vacio(const t_indice *indice);
 void indice_vaciar(t_indice *indice);
 int indice_buscar(t_indice* indice, t_reg_indice* reg_indice);
-
-int comparar_t_indice (void* a,void* b);
 void ordenamiento(t_indice* indice);
-void intercambio(void* a,void* b,size_t tam);
-
 
 #endif // INDICE_H_INCLUDED
 

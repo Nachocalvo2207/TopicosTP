@@ -19,7 +19,6 @@ fflush(stdin);
 }
 
 int normalizar_a_y_n(char * s){
-    // gomez maira Luisa
     char * auxEsc=s;
     char copia[60];
     int espacio=0, tienecoma,comalista=0,palabra=1;
@@ -27,7 +26,7 @@ int normalizar_a_y_n(char * s){
     char* auxLec = copia;
     tienecoma= tiene_coma(s);
     if(esLetra(*auxLec)){
-        *auxEsc=aMayuscula(*auxLec); // G
+        *auxEsc=aMayuscula(*auxLec);
         auxLec++;
         auxEsc++;
     }else{
@@ -35,10 +34,10 @@ int normalizar_a_y_n(char * s){
     }
     while(*auxLec){
         if(esLetra(*auxLec)&&palabra==1){
-            *auxEsc=aMinuscula(*auxLec); // Gomez
+            *auxEsc=aMinuscula(*auxLec);
             auxLec++;
             auxEsc++;
-        }else if(esEspacio(*auxLec)&&tienecoma==0&&comalista==0){ // Gomez,
+        }else if(esEspacio(*auxLec)&&tienecoma==0&&comalista==0){
             *auxEsc=',';
             auxEsc++;
             auxLec++;
@@ -49,13 +48,13 @@ int normalizar_a_y_n(char * s){
             auxLec++;
             comalista=1;
         }
-        else if(esEspacio(*auxLec)&&espacio==0){  //Gomez,
+        else if(esEspacio(*auxLec)&&espacio==0){
             *auxEsc=' ';
             auxEsc++;
             auxLec++;
             espacio=1;
             palabra=0;
-        }else if(esLetra(*auxLec)&&palabra==0){ //Gomez, M
+        }else if(esLetra(*auxLec)&&palabra==0){
             *auxEsc=aMayuscula(*auxLec);
             auxLec++;
             auxEsc++;
@@ -67,7 +66,7 @@ int normalizar_a_y_n(char * s){
             auxEsc++;
         }
     }
-    *auxEsc='\0'; // Gomez, Maira Luisa\0
+    *auxEsc='\0';
     return TODO_OK;
 }
 
@@ -159,7 +158,6 @@ int validar_sexo(const char sexo)
 
 int validar_afliacion(Socio* soc,t_fecha* fechaProc)
 {
-    /// Validar si las fechas de afiliacion y procesamiento son validas
     if (validar_fecha(&soc->fechaAfiliacion) && validar_fecha(fechaProc) )
     {
         /// Comprobar que la fecha de afiliacion es <= fecha de procesamiento
@@ -326,24 +324,25 @@ int validaciones(Socio* socio, t_fecha* fechaProc)
     return ERROR;
 }
 
-void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
+int alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
 {
     FILE* arch = abrir_archivo(ARCH_BIN,"ab");
     if(!arch)
     {
         printf("Error de lectura de archivo\n");
-        exit(1);
+        return ERR_ARCH;
     }
     Socio socio;
     fseek(arch,0,SEEK_END);
     printf("Ingrese el DNI: ");
     scanf("%ld",&socio.DNI);
+    fflush(stdin);
     t_reg_indice dni_buscar;
     dni_buscar.dni = socio.DNI;
     if(!validar_DNI(socio.DNI))
     {
         puts("DNI Invalido\n");
-        exit(1);
+        return ERR_DNI;
     }
 
     int pos = indice_buscar(indice,&dni_buscar);
@@ -353,7 +352,7 @@ void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
     }else
     {
         printf("Ingrese el nombre y apellido: \n");
-        scanf("%s",socio.ApYNom);
+        scanf("%[^\n]",socio.ApYNom);
         fflush(stdin);
         printf("Ingrese la fecha de nacimiento: \n");
         printf("Dia: \n");
@@ -390,20 +389,7 @@ void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
         printf("A%co: \n",164);
         scanf("%d",&socio.UltCuotaPaga.anio);
         fflush(stdin);
-        printf("Ingrese el estado: \n");
-        scanf("%c",&socio.estado);
-        socio.estado = aMayuscula(socio.estado);
-        fflush(stdin);
-        printf("Ingrese la fecha de baja:  \n");
-        printf("Dia: \n");
-        scanf("%d",&socio.fechaBaja.dia);
-        fflush(stdin);
-        printf("Mes: \n");
-        scanf("%d",&socio.fechaBaja.mes);
-        fflush(stdin);
-        printf("A%co: \n",164);
-        scanf("%d",&socio.fechaBaja.anio);
-        fflush(stdin);
+        socio.estado = 'A';
 
         if(validaciones(&socio,fecha))
         {
@@ -419,22 +405,23 @@ void alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
             printf("Los datos ingresados no son validos. \n");
         }
     }
+    return TODO_OK;
 
 }
 
 void mostrar_menu_modificacion(char * letra){
 //Mostrar menu
 fflush(stdin);
-printf("Ingrese la letra de la operaci%cn a realizar:\na. Modificar ayn \nb. Fecha Nac\nc. sexo\nd. Fecha afil\ne. categoria\nf. fecha ultima cuota paga\n",162);
+printf("Ingrese la letra de la operaci%cn a realizar:\na. Modificar ayn \nb. Fecha Nac\nc. sexo\nd. Fecha afil\ne. categoria\nf. fecha ultima cuota paga\ng. Salir\n",162);
 //leer por teclado la opcion y convertirla a mayuscula
 scanf("%c",letra);
-*letra=aMayuscula(*letra);
+letra=aMayuscula(letra);
 /////validar que sea correcta la opci�n
-while(*letra<'A'||*letra>'G'){
+while(letra<'A'||letra>'G'){
     printf("Ingrese opci%cn v%clida: ",162,160);
     fflush(stdin);
     scanf("%c",letra);
-    *letra=aMayuscula(*letra);
+    letra=aMayuscula(letra);
 }
 fflush(stdin);
 }
@@ -470,7 +457,7 @@ void mostrar_informacion(t_indice *indice, const char *path){
     fclose(arch);
 }
 
-void modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
+int modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
 {
     FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
     if(!arch)
@@ -494,7 +481,7 @@ void modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
     if(indice_buscar(indice,&dni_buscar))
     {
         fseek(arch,indice->arr->nro_reg * sizeof(Socio),SEEK_SET);
-
+        fread(&socio,sizeof(Socio),1,arch);
         do{
             mostrar_menu_modificacion(&opcion);
             switch(opcion){
@@ -558,7 +545,13 @@ void modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
             }
         }while(opcion!='G');
     }
-
+    fseek(arch, dni_buscar.nro_reg * sizeof(Socio), SEEK_SET);
+    fwrite(&socio,sizeof(Socio),1,arch);
+    fclose(arch);
+    indice_vaciar(indice);
+    indice_crear(indice);
+    indice_cargar(indice,ARCH_BIN);
+    puts("Modificacion exitosa\n");
 
 }
 
@@ -586,12 +579,12 @@ int mostrar_ordenado(t_indice *indice, const char *path) {
     return TODO_OK;
 }
 
-void baja_socio(t_indice *indice,const char *path){
+int baja_socio(t_indice *indice,const char *path){
 FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
     if(!arch)
     {
         printf("Error de lectura de archivo\n");
-        exit(1);
+        return ERR_ARCH;
     }
     Socio socio;
     printf("Ingrese el DNI a dar de baja: ");
@@ -600,13 +593,13 @@ FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
     dni_buscar.dni = socio.DNI;
     if(!validar_DNI(socio.DNI))
     {
-        puts("DNI Invalido\n");
-        exit(1);
+        puts("DNI invalido\n");
+        return ERR_DNI;
     }
     int pos = indice_buscar(indice,&dni_buscar);
     if(!pos){
         puts("DNI no encontrado\n");
-        exit(1);
+        return ERR_DNI;
     }else{
         fseek(arch, dni_buscar.nro_reg * sizeof(Socio), SEEK_SET);
         fread(&socio, sizeof(socio), 1, arch);
@@ -619,4 +612,5 @@ FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
         indice_cargar(indice,ARCH_BIN);
         puts("Baja exitosa.\n");
     }
+    return TODO_OK;
 }
