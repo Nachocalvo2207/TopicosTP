@@ -135,13 +135,15 @@ int validar_fecha(t_fecha* fecha)
     if((fecha->mes==4 || fecha->mes==6 || fecha->mes==9 || fecha->mes==11) && fecha->dia>30)
             return ERR_FECHA;
 
-    if(fecha->mes==2){
-        if(( (fecha->anio%4==0 && fecha->anio%100!=0 ) || fecha->anio%400==0) && fecha->dia>29)
-            return ERR_FECHA;
-
-        }else if(fecha->dia>28){
-            return ERR_FECHA;
-            }
+    if(fecha->mes == 2) {
+        if(((fecha->anio % 4 == 0 && fecha->anio % 100 != 0) || fecha->anio % 400 == 0)) {
+            if(fecha->dia > 29)
+                return ERR_FECHA;
+        } else {  // Año no bisiesto
+            if(fecha->dia > 28)
+                return ERR_FECHA;
+        }
+    }
 
     return TODO_OK;
 }
