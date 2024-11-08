@@ -107,7 +107,7 @@ int validar_nacimiento(Socio* soc, t_fecha* fechaProc)
 
     }
 
-    printf("Fecha de nacimiento invalida");
+    printf("\nFecha de nacimiento invalida");
    return ERROR;
 }
 
@@ -282,6 +282,7 @@ FILE* abrir_archivo(const char* filename, const char* modo)
 }
 
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fecha* fecha){
+    int cont = 0;
     char registro [TAM_REGISTRO];
     Socio socio;
     while(fgets(registro,TAM_REGISTRO,ptexto)){
@@ -290,6 +291,7 @@ void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fec
         //SI TODO OK, ESCRIBE EN EL BINARIO
         if(validaciones(&socio,fecha)){
                 fwrite(&socio,sizeof(Socio),1,pbinario);
+                cont++;
         }
         else{
             //SI HAY ERROR, ESCRIBE EN TEXTO DE ERROR
@@ -298,6 +300,9 @@ void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fec
            socio.UltCuotaPaga.dia,socio.UltCuotaPaga.mes,socio.UltCuotaPaga.anio,socio.estado,socio.fechaBaja.dia,socio.fechaBaja.mes,
            socio.fechaBaja.anio);
         }
+    }
+    if(cont==0){
+        printf("No se encontraron registros validos.\n");
     }
 }
 
