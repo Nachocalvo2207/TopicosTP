@@ -67,7 +67,7 @@ int validar_ultima_cuota(Socio* soc,t_fecha* fechaProc);
 int validar_estado(char* estado);
 int validar_fecha_de_baja(Socio* soc);
 int validaciones(Socio* socio,t_fecha* fechaProc);
-void mostrar_informacion(t_indice *indice, const char *path);
+int mostrar_informacion(t_indice *indice, const char *path);
 void archivo_variable_a_binario(FILE* pbinario, FILE* ptexto, FILE *perror,t_fecha* fecha);
 void cargar_estructura(const char* registro,Socio *socio);
 int alta_socio(t_indice* indice,const char* path,t_fecha* fecha);

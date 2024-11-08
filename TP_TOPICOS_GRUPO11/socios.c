@@ -310,8 +310,7 @@ void cargar_estructura(const char* registro,Socio *socio){
 
 int validaciones(Socio* socio, t_fecha* fechaProc)
 {
-//UNIR TODAS LAS VALIDACIONES ACÁ.
-    ///Valido que todo sea correcto
+    //Valido que todo sea correcto
     if(
     validar_DNI(socio->DNI)
     && validar_nacimiento(socio,fechaProc)
@@ -412,28 +411,27 @@ int alta_socio(t_indice* indice,const char* path,t_fecha* fecha)
 }
 
 void mostrar_menu_modificacion(char * letra){
-//Mostrar menu
 fflush(stdin);
-printf("Ingrese la letra de la operaci%cn a realizar:\na. Modificar ayn \nb. Fecha Nac\nc. sexo\nd. Fecha afil\ne. categoria\nf. fecha ultima cuota paga\ng. Salir\n",162);
+printf("Ingrese la letra del dato a modificar:\na. Apellido y Nombre \nb. Fecha de nacimiento\nc. Sexo\nd. Fecha de afiliaci%cn\ne. Categor%ca\nf. Fecha de %cltima cuota paga\ng. Salir\n",162,161,163);
 //leer por teclado la opcion y convertirla a mayuscula
 scanf("%c",letra);
-letra=aMayuscula(letra);
-/////validar que sea correcta la opci�n
-while(letra<'A'||letra>'G'){
+*letra=aMayuscula(*letra);
+/////validar que sea correcta la opcion
+while(*letra<'A'||*letra>'G'){
     printf("Ingrese opci%cn v%clida: ",162,160);
     fflush(stdin);
     scanf("%c",letra);
-    letra=aMayuscula(letra);
+    *letra=aMayuscula(*letra);
 }
 fflush(stdin);
 }
 
-void mostrar_informacion(t_indice *indice, const char *path){
+int mostrar_informacion(t_indice *indice, const char *path){
     FILE* arch = abrir_archivo(ARCH_BIN,"r+b");
     if(!arch)
     {
         printf("Error de lectura de archivo\n");
-        exit(1);
+        return ERR_ARCH;
     }
     Socio socio;
     printf("Ingrese el DNI a consultar: ");
@@ -443,12 +441,12 @@ void mostrar_informacion(t_indice *indice, const char *path){
     if(!validar_DNI(socio.DNI))
     {
         puts("DNI Invalido\n");
-        exit(1);
+        return ERR_DNI;
     }
     int pos = indice_buscar(indice,&dni_buscar);
     if(!pos){
         puts("DNI no encontrado\n");
-        exit(1);
+        return ERR_DNI;
     }else{
         fseek(arch, dni_buscar.nro_reg * sizeof(Socio), SEEK_SET);
         fread(&socio, sizeof(socio), 1, arch);
@@ -457,6 +455,7 @@ void mostrar_informacion(t_indice *indice, const char *path){
                socio.UltCuotaPaga.mes,socio.UltCuotaPaga.anio,socio.estado,socio.fechaBaja.dia,socio.fechaBaja.mes,socio.fechaBaja.anio);
     }
     fclose(arch);
+    return TODO_OK;
 }
 
 int modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
@@ -465,7 +464,7 @@ int modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
     if(!arch)
     {
         printf("Error de lectura de archivo\n");
-        exit(1);
+        return ERR_ARCH;
     }
     Socio socio;
 
@@ -476,13 +475,13 @@ int modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
     if(!validar_DNI(socio.DNI))
     {
         puts("DNI Invalido\n");
-        exit(1);
+        return ERR_DNI;
     }
     char opcion;
 
     if(indice_buscar(indice,&dni_buscar))
     {
-        fseek(arch,indice->arr->nro_reg * sizeof(Socio),SEEK_SET);
+        fseek(arch,dni_buscar.nro_reg * sizeof(Socio),SEEK_SET);
         fread(&socio,sizeof(Socio),1,arch);
         do{
             mostrar_menu_modificacion(&opcion);
@@ -546,7 +545,11 @@ int modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
                     break;
             }
         }while(opcion!='G');
+    }else{
+        puts("DNI no encontrado\n");
+        return ERR_DNI;
     }
+
     fseek(arch, dni_buscar.nro_reg * sizeof(Socio), SEEK_SET);
     fwrite(&socio,sizeof(Socio),1,arch);
     fclose(arch);
@@ -554,9 +557,9 @@ int modificar_socio(t_indice* indice,const char* path,t_fecha* fecha)
     indice_crear(indice);
     indice_cargar(indice,ARCH_BIN);
     puts("Modificacion exitosa\n");
+    return TODO_OK;
 
 }
-
 
 
 int mostrar_ordenado(t_indice *indice, const char *path) {
